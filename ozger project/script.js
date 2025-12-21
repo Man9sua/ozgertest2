@@ -2171,6 +2171,9 @@ window.addEventListener('load', async () => {
                         // Store a flag that we're in password reset mode
                         sessionStorage.setItem('passwordResetMode', 'true');
                         console.log('Password reset flag set to true (setSession approach)');
+
+                        // Try to open modal immediately after setting flag
+                        setTimeout(() => checkPasswordResetMode(), 100);
                     }
                 } catch (err) {
                     console.log('Session set exception:', err);
@@ -2203,6 +2206,9 @@ window.addEventListener('load', async () => {
                         // Store a flag that we're in password reset mode
                         sessionStorage.setItem('passwordResetMode', 'true');
                         console.log('Password reset flag set to true (verifyOtp approach)');
+
+                        // Try to open modal immediately after setting flag
+                        setTimeout(() => checkPasswordResetMode(), 100);
                     }
                 } catch (err) {
                     console.log('verifyOtp exception:', err);
