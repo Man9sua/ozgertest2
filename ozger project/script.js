@@ -1594,22 +1594,20 @@ function renderAuthForm(mode = 'login') {
         updateAuthSteps();
 
         if (container) {
-            const resetPasswordText = t('resetPassword');
-            console.log('resetPassword translation:', resetPasswordText);
-            title.textContent = resetPasswordText;
+            title.textContent = 'Сброс пароля';
 
             const formHtml = `
                 <form class="auth-form" id="authForm">
                     <div class="form-group">
-                        <label class="form-label">${t('newPassword')}</label>
-                        <input type="password" class="form-input" id="newPassword" placeholder="${t('newPassword')}" required>
+                        <label class="form-label">Новый пароль</label>
+                        <input type="password" class="form-input" id="newPassword" placeholder="Введите новый пароль" required>
                     </div>
                     <div class="form-group">
-                        <label class="form-label">${t('confirmPassword')}</label>
-                        <input type="password" class="form-input" id="confirmNewPassword" placeholder="${t('confirmPassword')}" required>
+                        <label class="form-label">Подтвердите пароль</label>
+                        <input type="password" class="form-input" id="confirmNewPassword" placeholder="Подтвердите новый пароль" required>
                     </div>
                     <button type="submit" class="btn btn-primary" style="width:100%;padding:14px;">
-                        ${t('updatePassword')}
+                        Обновить пароль
                     </button>
                 </form>
             `;
