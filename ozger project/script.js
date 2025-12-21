@@ -2153,10 +2153,12 @@ window.addEventListener('load', async () => {
                         refresh_token: refreshToken
                     });
 
-                    if (error) {
-                        console.log('Session set failed:', error);
-                        resetError = error;
-                    } else {
+                if (error) {
+                    console.log('Session set failed:', error);
+                    resetError = error;
+                    sessionStorage.removeItem('passwordResetMode');
+                    console.log('Password reset flag removed due to session set error');
+                } else {
                         console.log('Session set successfully for password reset');
                         resetSuccess = true;
 
@@ -2168,6 +2170,7 @@ window.addEventListener('load', async () => {
 
                         // Store a flag that we're in password reset mode
                         sessionStorage.setItem('passwordResetMode', 'true');
+                        console.log('Password reset flag set to true (setSession approach)');
                     }
                 } catch (err) {
                     console.log('Session set exception:', err);
@@ -2199,10 +2202,13 @@ window.addEventListener('load', async () => {
 
                         // Store a flag that we're in password reset mode
                         sessionStorage.setItem('passwordResetMode', 'true');
+                        console.log('Password reset flag set to true (verifyOtp approach)');
                     }
                 } catch (err) {
                     console.log('verifyOtp exception:', err);
                     resetError = err;
+                    sessionStorage.removeItem('passwordResetMode');
+                    console.log('Password reset flag removed due to verifyOtp exception');
                 }
             }
 
@@ -2213,12 +2219,14 @@ window.addEventListener('load', async () => {
                 console.error('All password reset approaches failed');
                 console.error('Final error:', resetError);
                 sessionStorage.removeItem('passwordResetMode');
+                console.log('Password reset flag removed - all approaches failed');
                 showToast('Недействительная или истекшая ссылка восстановления', 'error');
             }
         } catch (err) {
             console.error('Error processing reset link:', err);
             // Clear the password reset flag if there was an error
             sessionStorage.removeItem('passwordResetMode');
+            console.log('Password reset flag removed due to processing error');
             showToast('Ошибка при обработке ссылки восстановления', 'error');
         }
     }
@@ -2310,7 +2318,10 @@ function updateAuthUI() {
 
 // Check if we need to open password reset modal
 function checkPasswordResetMode() {
-    const isPasswordResetMode = sessionStorage.getItem('passwordResetMode') === 'true';
+    const passwordResetFlag = sessionStorage.getItem('passwordResetMode');
+    console.log('checkPasswordResetMode called, flag value:', passwordResetFlag);
+
+    const isPasswordResetMode = passwordResetFlag === 'true';
     if (isPasswordResetMode) {
         console.log('Password reset mode detected, opening reset modal');
 
@@ -2319,21 +2330,38 @@ function checkPasswordResetMode() {
             const authModal = document.getElementById('authModal');
             const authFormContainer = document.getElementById('authFormContainer');
 
+            console.log('authModal found:', !!authModal);
+            console.log('authFormContainer found:', !!authFormContainer);
+
             if (!authModal || !authFormContainer) {
                 console.warn('DOM elements not ready, retrying in 500ms');
+                console.log('Available elements:', {
+                    authModal: document.getElementById('authModal'),
+                    authFormContainer: document.getElementById('authFormContainer')
+                });
                 setTimeout(checkPasswordResetMode, 500);
                 return;
             }
 
+            console.log('Calling renderAuthForm with reset');
             renderAuthForm('reset');
+
+            console.log('Calling openModal with authModal');
             openModal('authModal');
+
+            console.log('Calling showToast');
             showToast('Введите новый пароль для входа в аккаунт', 'info');
+
             // Clear the flag so it doesn't keep opening
             sessionStorage.removeItem('passwordResetMode');
+            console.log('Password reset flag cleared after successful modal open');
         } catch (err) {
             console.error('Error opening password reset modal:', err);
             sessionStorage.removeItem('passwordResetMode');
+            console.log('Password reset flag removed due to modal opening error');
         }
+    } else {
+        console.log('Password reset mode not detected');
     }
 }
 
