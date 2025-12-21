@@ -2151,10 +2151,7 @@ window.addEventListener('load', async () => {
                     // Store a flag that we're in password reset mode
                     sessionStorage.setItem('passwordResetMode', 'true');
 
-                    // Open the reset password modal
-                    renderAuthForm('reset');
-                    openModal('authModal');
-                    showToast('Введите новый пароль для входа в аккаунт', 'info');
+                    // Modal will be opened by checkPasswordResetMode() after DOM is ready
                 }
             } else {
                 // Fallback: try to set session temporarily, then sign out
@@ -2177,10 +2174,7 @@ window.addEventListener('load', async () => {
                     // Store a flag that we're in password reset mode
                     sessionStorage.setItem('passwordResetMode', 'true');
 
-                    // Open the reset password modal
-                    renderAuthForm('reset');
-                    openModal('authModal');
-                    showToast('Введите новый пароль для входа в аккаунт', 'info');
+                    // Modal will be opened by checkPasswordResetMode() after DOM is ready
                 }
             }
         } catch (err) {
@@ -2270,6 +2264,19 @@ function updateAuthUI() {
         
         if (sidebarUsername) sidebarUsername.textContent = t('guest');
         if (profilePlaceholder) profilePlaceholder.textContent = '?';
+    }
+}
+
+// Check if we need to open password reset modal
+function checkPasswordResetMode() {
+    const isPasswordResetMode = sessionStorage.getItem('passwordResetMode') === 'true';
+    if (isPasswordResetMode) {
+        console.log('Password reset mode detected, opening reset modal');
+        renderAuthForm('reset');
+        openModal('authModal');
+        showToast('Введите новый пароль для входа в аккаунт', 'info');
+        // Clear the flag so it doesn't keep opening
+        sessionStorage.removeItem('passwordResetMode');
     }
 }
 
@@ -3639,11 +3646,11 @@ function init() {
     initEventListeners();
     loadSession();
     renderFaqContent();
-    
+
     if (userAvatar) {
         updateAvatarUI(userAvatar);
     }
-    
+
     // Auth state listener
     if (supabaseClient) {
         supabaseClient.auth.onAuthStateChange((event, session) => {
@@ -3657,8 +3664,14 @@ function init() {
                 currentUser = null;
             }
             updateAuthUI();
+
+            // Check for password reset mode after auth state is updated
+            checkPasswordResetMode();
         });
     }
+
+    // Also check password reset mode immediately in case auth state doesn't change
+    setTimeout(checkPasswordResetMode, 100);
 }
 
 document.addEventListener('DOMContentLoaded', init);
