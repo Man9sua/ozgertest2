@@ -2171,10 +2171,7 @@ window.addEventListener('load', async () => {
                         // Clear the URL parameters to clean up the URL
                         window.history.replaceState(null, null, window.location.pathname);
 
-                        // Immediately sign out to prevent auto-login
-                        await supabaseClient.auth.signOut();
-
-                        // Store a flag that we're in password reset mode
+                        // Store a flag that we're in password reset mode (but DON'T sign out yet)
                         sessionStorage.setItem('passwordResetMode', 'true');
                         console.log('Password reset flag set to true (setSession approach)');
 
@@ -2206,10 +2203,7 @@ window.addEventListener('load', async () => {
                         // Clear the URL parameters to clean up the URL
                         window.history.replaceState(null, null, window.location.pathname);
 
-                        // Immediately sign out to prevent auto-login
-                        await supabaseClient.auth.signOut();
-
-                        // Store a flag that we're in password reset mode
+                        // Store a flag that we're in password reset mode (but DON'T sign out yet)
                         sessionStorage.setItem('passwordResetMode', 'true');
                         console.log('Password reset flag set to true (verifyOtp approach)');
 
@@ -2295,6 +2289,10 @@ async function handleResetPassword() {
         }
 
         console.log('Password updated successfully');
+
+        // Now sign out after successful password update
+        console.log('Signing out after password update');
+        await supabaseClient.auth.signOut();
 
         // Clear the password reset mode flag
         sessionStorage.removeItem('passwordResetMode');
