@@ -2244,44 +2244,71 @@ window.addEventListener('load', async () => {
     }
 })
 async function handleResetPassword() {
-    const pass1 = document.getElementById('newPassword')?.value;
-    const pass2 = document.getElementById('confirmNewPassword')?.value;
+    console.log('handleResetPassword called');
+
+    const newPasswordElement = document.getElementById('newPassword');
+    const confirmPasswordElement = document.getElementById('confirmNewPassword');
+
+    console.log('newPassword element:', newPasswordElement);
+    console.log('confirmPassword element:', confirmPasswordElement);
+
+    const pass1 = newPasswordElement?.value;
+    const pass2 = confirmPasswordElement?.value;
+
+    console.log('pass1:', pass1 ? '[HIDDEN]' : 'null/empty');
+    console.log('pass2:', pass2 ? '[HIDDEN]' : 'null/empty');
 
     if (!pass1 || !pass2) {
-        showToast(t('fillAllFields'), 'warning');
+        console.log('Empty password fields detected');
+        const fillAllFieldsText = t('fillAllFields');
+        console.log('fillAllFields translation:', fillAllFieldsText);
+        showToast(fillAllFieldsText || 'Заполните все поля', 'warning');
         return;
     }
 
     if (pass1.length < 6) {
+        console.log('Password too short:', pass1.length, 'characters');
         showToast('Пароль должен быть минимум 6 символов', 'warning');
         return;
     }
 
     if (pass1 !== pass2) {
+        console.log('Passwords do not match');
         showToast('Пароли не совпадают', 'error');
         return;
     }
 
+    console.log('All validations passed, attempting to update password');
+
     try {
-        const { error } = await supabaseClient.auth.updateUser({
+        console.log('Calling supabaseClient.auth.updateUser');
+        const { data, error } = await supabaseClient.auth.updateUser({
             password: pass1
         });
 
+        console.log('updateUser result:', { data: data ? 'success' : null, error });
+
         if (error) {
+            console.error('updateUser error:', error);
             showToast(error.message, 'error');
             return;
         }
 
+        console.log('Password updated successfully');
+
         // Clear the password reset mode flag
         sessionStorage.removeItem('passwordResetMode');
+        console.log('Password reset flag cleared');
 
         showToast('Пароль успешно обновлен! Вы вошли в аккаунт.', 'success');
 
         // Close modal and redirect to home
+        console.log('Closing modal and redirecting to home');
         closeModal('authModal');
         showHome();
     } catch (err) {
         console.error('Password update error:', err);
+        console.error('Error details:', err.message);
         showToast('Ошибка при обновлении пароля: ' + err.message, 'error');
     }
 }
