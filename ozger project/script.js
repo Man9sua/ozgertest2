@@ -2121,7 +2121,9 @@ window.addEventListener('load', async () => {
         console.log('Current URL:', window.location.href);
         console.log('Hash params:', window.location.hash);
         console.log('Query params:', window.location.search);
-        console.log('Access token:', accessToken.substring(0, 20) + '...');
+        console.log('Access token present:', !!accessToken);
+        console.log('Refresh token present:', !!refreshToken);
+        console.log('Access token (first 20 chars):', accessToken ? accessToken.substring(0, 20) + '...' : 'null');
         console.log('Type:', type);
 
         try {
@@ -2130,33 +2132,88 @@ window.addEventListener('load', async () => {
             const tokenHash = hashParams.get('token_hash') || urlParams.get('token_hash') ||
                             window.location.hash.split('token_hash=')[1]?.split('&')[0];
 
-            if (tokenHash) {
-                // Verify the recovery token
-                const { data, error } = await supabaseClient.auth.verifyOtp({
-                    token_hash: tokenHash,
-                    type: 'recovery'
-                });
+            console.log('tokenHash from hashParams:', hashParams.get('token_hash'));
+            console.log('tokenHash from urlParams:', urlParams.get('token_hash'));
+            console.log('tokenHash from hash split:', window.location.hash.split('token_hash=')[1]?.split('&')[0]);
+            console.log('Final tokenHash:', tokenHash);
+            console.log('Full URL:', window.location.href);
+            console.log('Hash part:', window.location.hash);
+            console.log('Search part:', window.location.search);
 
-                if (error) {
-                    console.error('Recovery token verification error:', error);
-                    sessionStorage.removeItem('passwordResetMode');
-                    showToast('Недействительная или истекшая ссылка восстановления', 'error');
-                } else {
-                    console.log('Recovery token verified successfully');
-                    // Clear the URL parameters to clean up the URL
-                    window.history.replaceState(null, null, window.location.pathname);
+            // Try different approaches for password reset
+            let resetSuccess = false;
+            let resetError = null;
 
-                    // Immediately sign out to prevent auto-login
-                    await supabaseClient.auth.signOut();
+            // Approach 1: Try to set session directly (for Supabase auth links)
+            if (accessToken && refreshToken) {
+                console.log('Trying to set session with access_token and refresh_token');
+                try {
+                    const { data, error } = await supabaseClient.auth.setSession({
+                        access_token: accessToken,
+                        refresh_token: refreshToken
+                    });
 
-                    // Store a flag that we're in password reset mode
-                    sessionStorage.setItem('passwordResetMode', 'true');
+                    if (error) {
+                        console.log('Session set failed:', error);
+                        resetError = error;
+                    } else {
+                        console.log('Session set successfully for password reset');
+                        resetSuccess = true;
 
-                    // Modal will be opened by checkPasswordResetMode() after DOM is ready
+                        // Clear the URL parameters to clean up the URL
+                        window.history.replaceState(null, null, window.location.pathname);
+
+                        // Immediately sign out to prevent auto-login
+                        await supabaseClient.auth.signOut();
+
+                        // Store a flag that we're in password reset mode
+                        sessionStorage.setItem('passwordResetMode', 'true');
+                    }
+                } catch (err) {
+                    console.log('Session set exception:', err);
+                    resetError = err;
                 }
+            }
+
+            // Approach 2: Try verifyOtp with token_hash (fallback)
+            if (!resetSuccess && tokenHash) {
+                console.log('Trying verifyOtp with token_hash as fallback');
+                try {
+                    const { data, error } = await supabaseClient.auth.verifyOtp({
+                        token_hash: tokenHash,
+                        type: 'recovery'
+                    });
+
+                    if (error) {
+                        console.log('verifyOtp failed:', error);
+                        resetError = error;
+                    } else {
+                        console.log('verifyOtp successful');
+                        resetSuccess = true;
+
+                        // Clear the URL parameters to clean up the URL
+                        window.history.replaceState(null, null, window.location.pathname);
+
+                        // Immediately sign out to prevent auto-login
+                        await supabaseClient.auth.signOut();
+
+                        // Store a flag that we're in password reset mode
+                        sessionStorage.setItem('passwordResetMode', 'true');
+                    }
+                } catch (err) {
+                    console.log('verifyOtp exception:', err);
+                    resetError = err;
+                }
+            }
+
+            if (resetSuccess) {
+                console.log('Password reset flow initiated successfully');
+                // Modal will be opened by checkPasswordResetMode() after DOM is ready
             } else {
-                console.error('No token_hash found in URL for recovery');
-                showToast('Недействительная ссылка восстановления', 'error');
+                console.error('All password reset approaches failed');
+                console.error('Final error:', resetError);
+                sessionStorage.removeItem('passwordResetMode');
+                showToast('Недействительная или истекшая ссылка восстановления', 'error');
             }
         } catch (err) {
             console.error('Error processing reset link:', err);
