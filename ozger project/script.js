@@ -2139,6 +2139,7 @@ window.addEventListener('load', async () => {
 
                 if (error) {
                     console.error('Recovery token verification error:', error);
+                    sessionStorage.removeItem('passwordResetMode');
                     showToast('Недействительная или истекшая ссылка восстановления', 'error');
                 } else {
                     console.log('Recovery token verified successfully');
@@ -2154,34 +2155,17 @@ window.addEventListener('load', async () => {
                     // Modal will be opened by checkPasswordResetMode() after DOM is ready
                 }
             } else {
-                // Fallback: try to set session temporarily, then sign out
-                const { data, error } = await supabaseClient.auth.setSession({
-                    access_token: accessToken,
-                    refresh_token: refreshToken
-                });
-
-                if (error) {
-                    console.error('Session error:', error);
-                    showToast('Недействительная ссылка восстановления', 'error');
-                } else {
-                    console.log('Session set successfully for password reset');
-                    // Clear the URL parameters to clean up the URL
-                    window.history.replaceState(null, null, window.location.pathname);
-
-                    // Immediately sign out to prevent auto-login
-                    await supabaseClient.auth.signOut();
-
-                    // Store a flag that we're in password reset mode
-                    sessionStorage.setItem('passwordResetMode', 'true');
-
-                    // Modal will be opened by checkPasswordResetMode() after DOM is ready
-                }
+                console.error('No token_hash found in URL for recovery');
+                showToast('Недействительная ссылка восстановления', 'error');
             }
         } catch (err) {
             console.error('Error processing reset link:', err);
+            // Clear the password reset flag if there was an error
+            sessionStorage.removeItem('passwordResetMode');
             showToast('Ошибка при обработке ссылки восстановления', 'error');
         }
-    }})
+    }
+})
 async function handleResetPassword() {
     const pass1 = document.getElementById('newPassword')?.value;
     const pass2 = document.getElementById('confirmNewPassword')?.value;
@@ -2272,11 +2256,27 @@ function checkPasswordResetMode() {
     const isPasswordResetMode = sessionStorage.getItem('passwordResetMode') === 'true';
     if (isPasswordResetMode) {
         console.log('Password reset mode detected, opening reset modal');
-        renderAuthForm('reset');
-        openModal('authModal');
-        showToast('Введите новый пароль для входа в аккаунт', 'info');
-        // Clear the flag so it doesn't keep opening
-        sessionStorage.removeItem('passwordResetMode');
+
+        try {
+            // Check if DOM elements are ready
+            const authModal = document.getElementById('authModal');
+            const authFormContainer = document.getElementById('authFormContainer');
+
+            if (!authModal || !authFormContainer) {
+                console.warn('DOM elements not ready, retrying in 500ms');
+                setTimeout(checkPasswordResetMode, 500);
+                return;
+            }
+
+            renderAuthForm('reset');
+            openModal('authModal');
+            showToast('Введите новый пароль для входа в аккаунт', 'info');
+            // Clear the flag so it doesn't keep opening
+            sessionStorage.removeItem('passwordResetMode');
+        } catch (err) {
+            console.error('Error opening password reset modal:', err);
+            sessionStorage.removeItem('passwordResetMode');
+        }
     }
 }
 
