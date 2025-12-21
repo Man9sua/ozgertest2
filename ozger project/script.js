@@ -2077,12 +2077,12 @@ window.addEventListener('load', async () => {
     }
 
     // Check for reset password tokens in URL (both hash and query params for Netlify compatibility)
-    // hashParams and queryParams are already declared above
+    // hashParams and urlParams are already declared above
 
     // Try hash params first (local development), then query params (Netlify)
-    let accessToken = hashParams.get('access_token') || queryParams.get('access_token');
-    let refreshToken = hashParams.get('refresh_token') || queryParams.get('refresh_token');
-    let type = hashParams.get('type') || queryParams.get('type');
+    let accessToken = hashParams.get('access_token') || urlParams.get('access_token');
+    let refreshToken = hashParams.get('refresh_token') || urlParams.get('refresh_token');
+    let type = hashParams.get('type') || urlParams.get('type');
 
     // Also check for fragment parameter that Supabase might use
     if (!type && window.location.hash.includes('type=recovery')) {
@@ -2127,7 +2127,7 @@ window.addEventListener('load', async () => {
         try {
             // For password reset, we need to verify the token first
             // Extract token_hash from URL (Supabase uses this for recovery)
-            const tokenHash = hashParams.get('token_hash') || queryParams.get('token_hash') ||
+            const tokenHash = hashParams.get('token_hash') || urlParams.get('token_hash') ||
                             window.location.hash.split('token_hash=')[1]?.split('&')[0];
 
             if (tokenHash) {
