@@ -1586,13 +1586,19 @@ function renderAuthForm(mode = 'login') {
     }
     // RESET PASSWORD (new password + confirm)
     if (isReset) {
+        console.log('Rendering reset password form');
+        console.log('Container found:', !!container);
+        console.log('Title element found:', !!title);
+
         regStep = 0;
         updateAuthSteps();
 
         if (container) {
-            title.textContent = t('resetPassword');
+            const resetPasswordText = t('resetPassword');
+            console.log('resetPassword translation:', resetPasswordText);
+            title.textContent = resetPasswordText;
 
-            container.innerHTML = `
+            const formHtml = `
                 <form class="auth-form" id="authForm">
                     <div class="form-group">
                         <label class="form-label">${t('newPassword')}</label>
@@ -1607,6 +1613,8 @@ function renderAuthForm(mode = 'login') {
                     </button>
                 </form>
             `;
+            console.log('Setting container innerHTML for reset form');
+            container.innerHTML = formHtml;
 
             document.getElementById('authForm')?.addEventListener('submit', (e) => {
                 e.preventDefault();
@@ -2351,6 +2359,12 @@ function checkPasswordResetMode() {
 
             console.log('Calling renderAuthForm with reset');
             renderAuthForm('reset');
+
+            // Check if form was rendered
+            const newPasswordField = document.getElementById('newPassword');
+            const confirmPasswordField = document.getElementById('confirmNewPassword');
+            console.log('newPassword field found:', !!newPasswordField);
+            console.log('confirmNewPassword field found:', !!confirmPasswordField);
 
             console.log('Calling openModal with authModal');
             openModal('authModal');
