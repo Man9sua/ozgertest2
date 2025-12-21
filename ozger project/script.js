@@ -120,6 +120,9 @@ const i18n = {
         haveAccount: 'Аккаунтыңыз бар ма?',
         signUp: 'Тіркелу',
         signIn: 'Кіру',
+        forgotPassword: 'Құпия сөзді ұмыттыңыз ба?',
+        resetPassword: 'Электрондық поштаңызға кіру рұқсатын қалпына келтіру үшін сілтеме жібереміз.',
+        sendResetLink: 'Сілтеме жіберу',
         loginSuccess: 'Сәтті кірдіңіз!',
         registerSuccess: 'Тіркелу сәтті! Email-ды тексеріңіз.',
         loginError: 'Кіру қатесі',
@@ -313,6 +316,9 @@ const i18n = {
         haveAccount: 'Есть аккаунт?',
         signUp: 'Зарегистрироваться',
         signIn: 'Войти',
+        forgotPassword: 'Забыли пароль?',
+        resetPassword: 'Мы отправим ссылку для восстановления доступа на ваш email',
+        sendResetLink: 'Отправить ссылку',
         loginSuccess: 'Успешный вход!',
         registerSuccess: 'Регистрация успешна! Проверьте email.',
         loginError: 'Ошибка входа',
@@ -505,6 +511,9 @@ const i18n = {
         haveAccount: 'Already have an account?',
         signUp: 'Sign Up',
         signIn: 'Sign In',
+        forgotPassword: 'Forgot password?',
+        resetPassword: 'We will send restore access link to your email',
+        sendResetLink: 'Send link',
         loginSuccess: 'Login successful!',
         registerSuccess: 'Registration successful! Check your email.',
         loginError: 'Login error',
@@ -887,7 +896,7 @@ function renderClassmates() {
     
     const subjectNames = getSubjectNames();
     
-    // Clear list safely
+        // Clear list safely
     list.innerHTML = '';
 
     classmates.forEach(classmate => {
@@ -996,7 +1005,7 @@ function updateRating() {
         }
     ] : [];
     
-    // Clear list safely
+        // Clear list safely
     ratingList.innerHTML = '';
 
     if (ratings.length === 0) {
@@ -1479,7 +1488,7 @@ function showFaqSection(section) {
 function renderFaqContent() {
     const faqContent = document.getElementById('faqContent');
     if (!faqContent) return;
-
+    
     // Clear content safely
     faqContent.innerHTML = '';
 
@@ -1511,7 +1520,7 @@ function renderFaqContent() {
 function renderGuideContent() {
     const guideContent = document.getElementById('guideContent');
     if (!guideContent) return;
-
+    
     // Clear content safely
     guideContent.innerHTML = '';
 
@@ -1562,11 +1571,87 @@ function updateAuthSteps() {
 }
 
 function renderAuthForm(mode = 'login') {
-    const isLogin = mode === 'login';
+    const isForgot = mode === 'forgot';
+    const isLogin = mode === 'login' && !isForgot;
+    const isReset = mode === 'reset';
     const container = document.getElementById('authFormContainer');
     const title = document.getElementById('authModalTitle');
     
-    if (title) title.textContent = isLogin ? t('login') : t('register');
+    if (title) {
+        if (isForgot) {
+            title.textContent = t('forgotPassword');
+        } else {
+            title.textContent = isLogin ? t('login') : t('register');
+        }
+    }
+    // RESET PASSWORD (new password + confirm)
+    if (isReset) {
+        regStep = 0;
+        updateAuthSteps();
+
+        if (container) {
+            title.textContent = t('resetPassword');
+
+            container.innerHTML = `
+                <form class="auth-form" id="authForm">
+                    <div class="form-group">
+                        <label class="form-label">${t('newPassword')}</label>
+                        <input type="password" class="form-input" id="newPassword" placeholder="${t('newPassword')}" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">${t('confirmPassword')}</label>
+                        <input type="password" class="form-input" id="confirmNewPassword" placeholder="${t('confirmPassword')}" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width:100%;padding:14px;">
+                        ${t('updatePassword')}
+                    </button>
+                </form>
+            `;
+
+            document.getElementById('authForm')?.addEventListener('submit', (e) => {
+                e.preventDefault();
+                handleResetPassword();
+            });
+        }
+        return;
+    }
+
+    // For forgot password, show email-only form
+    if (isForgot) {
+        regStep = 0;
+        updateAuthSteps();
+        
+        if (container) {
+            container.innerHTML = `
+                <form class="auth-form" id="authForm">
+                    <div class="form-group">
+                        <label class="form-label">${t('emailPlaceholder')}</label>
+                        <input type="email" class="form-input" id="resetEmail" placeholder="${t('emailPlaceholder')}" required>
+                    </div>
+                    <p class="auth-hint">
+                        ${t('resetPassword')}
+                    </p>
+                    <button type="submit" class="btn btn-primary" style="width: 100%; padding: 14px;">
+                        ${t('sendResetLink')}
+                    </button>
+                </form>
+                <div class="auth-switch">
+                    ${t('haveAccount')}
+                    <span class="auth-switch-link" id="backToLog">${t('signUp')}</span>
+                </div>
+            `;
+            
+            document.getElementById('authForm')?.addEventListener('submit', (e) => {
+                e.preventDefault();
+                handleForgotPassword();
+            });
+            
+            document.getElementById('backToLog')?.addEventListener('click', () => {
+                renderAuthForm('login');
+            });
+        }
+        return;
+    }
     
     // For login, show simple form
     if (isLogin) {
@@ -1582,6 +1667,7 @@ function renderAuthForm(mode = 'login') {
                     <div class="form-group">
                         <input type="password" class="form-input" id="authPassword" placeholder="${t('passwordPlaceholder')}" required>
                     </div>
+                     <span class="auth-switch-link" id="forgotPassword">${t('forgotPassword')}</span>
                     <button type="submit" class="btn btn-primary" style="width: 100%; padding: 14px;">
                         ${t('signIn')}
                     </button>
@@ -1595,6 +1681,10 @@ function renderAuthForm(mode = 'login') {
             document.getElementById('authForm')?.addEventListener('submit', (e) => {
                 e.preventDefault();
                 handleAuth(true);
+            });
+            
+            document.getElementById('forgotPassword')?.addEventListener('click', () => {
+                renderAuthForm('forgot');
             });
             
             document.getElementById('authSwitchLink')?.addEventListener('click', () => {
@@ -1815,13 +1905,13 @@ async function completeRegistration(password) {
         updateAuthUI();
         return;
     }
-    
+
     try {
-        const { data, error } = await supabaseClient.auth.signUp({ 
-            email: regData.email, 
+        const { data, error } = await supabaseClient.auth.signUp({
+            email: regData.email,
             password,
-            options: { 
-                data: { 
+            options: {
+                data: {
                     username: regData.username,
                     country: regData.country,
                     city: regData.city,
@@ -1829,18 +1919,29 @@ async function completeRegistration(password) {
                     class: regData.class,
                     subject1: regData.subject1,
                     subject2: regData.subject2
-                } 
+                },
+                emailRedirectTo: `${window.location.origin}?type=signup`
             }
         });
-        
+
         if (error) throw error;
-        
-        // Save profile locally too
-        userProfile = { ...regData };
-        localStorage.setItem('ozgerUserProfile', JSON.stringify(userProfile));
-        
-        showToast(t('registerSuccess'), 'success');
-        closeModal('authModal');
+
+        // Check if user is immediately authenticated (email confirmation disabled)
+        if (data.user && data.session) {
+            currentUser = data.user;
+            // Save profile locally
+            userProfile = { ...regData };
+            localStorage.setItem('ozgerUserProfile', JSON.stringify(userProfile));
+            showToast(t('registerSuccess'), 'success');
+            closeModal('authModal');
+            updateAuthUI();
+            showHome();
+        } else {
+            // Email confirmation required - show appropriate message
+            showToast('Регистрация успешна! Проверьте вашу почту для подтверждения.', 'success');
+            closeModal('authModal');
+        }
+
     } catch (error) {
         showToast(t('registerError') + ': ' + error.message, 'error');
     }
@@ -1879,6 +1980,13 @@ async function handleAuth(isLogin) {
             if (error) throw error;
             
             currentUser = data.user;
+            
+            // Load user profile
+            if (!userProfile) {
+                userProfile = {};
+            }
+            
+            // Update auth UI and close modal
             showToast(t('loginSuccess'), 'success');
             closeModal('authModal');
             updateAuthUI();
@@ -1913,6 +2021,216 @@ async function handleLogout() {
         showToast('Logout error: ' + err.message, 'error');
     }
 }
+async function handleForgotPassword() {
+    const emailInput = document.getElementById('resetEmail');
+    if (!emailInput || !supabaseClient) return;
+
+    const email = emailInput.value.trim();
+    
+    if (!email) {
+        showToast(t('fillAllFields'), 'warning');
+        return;
+    }
+
+    const resetUrl = `${window.location.origin}?type=recovery`;
+    try {
+        // Use Supabase built-in reset password function
+        const { data, error } = await supabaseClient.auth.resetPasswordForEmail(email, {
+            redirectTo: resetUrl
+        });
+
+        if (error) {
+            console.error('Reset password error:', error);
+            showToast('Ошибка: ' + error.message, 'error');
+            console.log('❌ Проблема при отправке письма!');
+            console.log('📧 Проверьте конфигурацию SMTP в Supabase Dashboard');
+            console.log('🔧 Убедитесь что в Supabase > Authentication > Email Templates настроены');
+            console.log('🔧 И что SMTP сервер настроен в Supabase > Settings > SMTP Settings');
+        } else {
+            console.log('Письмо для восстановления отправлено:', data);
+            showToast('Письмо отправлено на ваш email. Проверьте папку спам.', 'success');
+            renderAuthForm('login');
+        }
+    } catch (err) {
+        console.error('Reset password error:', err);
+        console.log('❌ Network/Supabase error!');
+        console.log('📧 Check SUPABASE_EMAIL_SETUP.md for configuration');
+        showToast('Ошибка сети при отправке письма', 'error');
+
+
+
+    }
+}
+window.addEventListener('load', async () => {
+    // Small delay to ensure everything is loaded
+    await new Promise(resolve => setTimeout(resolve, 100));
+
+    // Clear password reset mode flag if we're not in recovery flow
+    const urlParams = new URLSearchParams(window.location.search);
+    const hashParams = new URLSearchParams(window.location.hash.substring(1));
+    const hasRecoveryToken = urlParams.get('type') === 'recovery' ||
+                            hashParams.get('type') === 'recovery' ||
+                            window.location.hash.includes('type=recovery');
+
+    if (!hasRecoveryToken) {
+        sessionStorage.removeItem('passwordResetMode');
+    }
+
+    // Check for reset password tokens in URL (both hash and query params for Netlify compatibility)
+    // hashParams and queryParams are already declared above
+
+    // Try hash params first (local development), then query params (Netlify)
+    let accessToken = hashParams.get('access_token') || queryParams.get('access_token');
+    let refreshToken = hashParams.get('refresh_token') || queryParams.get('refresh_token');
+    let type = hashParams.get('type') || queryParams.get('type');
+
+    // Also check for fragment parameter that Supabase might use
+    if (!type && window.location.hash.includes('type=recovery')) {
+        type = 'recovery';
+    }
+    if (!type && window.location.hash.includes('type=signup')) {
+        type = 'signup';
+    }
+
+    // Handle email confirmation
+    if (accessToken && refreshToken && type === 'signup') {
+        console.log('Email confirmation link detected');
+        try {
+            const { data, error } = await supabaseClient.auth.setSession({
+                access_token: accessToken,
+                refresh_token: refreshToken
+            });
+
+            if (error) {
+                console.error('Email confirmation error:', error);
+                showToast('Ошибка подтверждения email', 'error');
+            } else {
+                console.log('Email confirmed successfully');
+                showToast('Email подтвержден! Добро пожаловать!', 'success');
+                // Clean URL
+                window.history.replaceState(null, null, window.location.pathname);
+                showHome();
+            }
+        } catch (err) {
+            console.error('Error confirming email:', err);
+            showToast('Ошибка при подтверждении email', 'error');
+        }
+    } else if (accessToken && type === 'recovery') {
+        // This is a password reset link - verify token but don't auto-login
+        console.log('Password reset link detected');
+        console.log('Current URL:', window.location.href);
+        console.log('Hash params:', window.location.hash);
+        console.log('Query params:', window.location.search);
+        console.log('Access token:', accessToken.substring(0, 20) + '...');
+        console.log('Type:', type);
+
+        try {
+            // For password reset, we need to verify the token first
+            // Extract token_hash from URL (Supabase uses this for recovery)
+            const tokenHash = hashParams.get('token_hash') || queryParams.get('token_hash') ||
+                            window.location.hash.split('token_hash=')[1]?.split('&')[0];
+
+            if (tokenHash) {
+                // Verify the recovery token
+                const { data, error } = await supabaseClient.auth.verifyOtp({
+                    token_hash: tokenHash,
+                    type: 'recovery'
+                });
+
+                if (error) {
+                    console.error('Recovery token verification error:', error);
+                    showToast('Недействительная или истекшая ссылка восстановления', 'error');
+                } else {
+                    console.log('Recovery token verified successfully');
+                    // Clear the URL parameters to clean up the URL
+                    window.history.replaceState(null, null, window.location.pathname);
+
+                    // Immediately sign out to prevent auto-login
+                    await supabaseClient.auth.signOut();
+
+                    // Store a flag that we're in password reset mode
+                    sessionStorage.setItem('passwordResetMode', 'true');
+
+                    // Open the reset password modal
+                    renderAuthForm('reset');
+                    openModal('authModal');
+                    showToast('Введите новый пароль для входа в аккаунт', 'info');
+                }
+            } else {
+                // Fallback: try to set session temporarily, then sign out
+                const { data, error } = await supabaseClient.auth.setSession({
+                    access_token: accessToken,
+                    refresh_token: refreshToken
+                });
+
+                if (error) {
+                    console.error('Session error:', error);
+                    showToast('Недействительная ссылка восстановления', 'error');
+                } else {
+                    console.log('Session set successfully for password reset');
+                    // Clear the URL parameters to clean up the URL
+                    window.history.replaceState(null, null, window.location.pathname);
+
+                    // Immediately sign out to prevent auto-login
+                    await supabaseClient.auth.signOut();
+
+                    // Store a flag that we're in password reset mode
+                    sessionStorage.setItem('passwordResetMode', 'true');
+
+                    // Open the reset password modal
+                    renderAuthForm('reset');
+                    openModal('authModal');
+                    showToast('Введите новый пароль для входа в аккаунт', 'info');
+                }
+            }
+        } catch (err) {
+            console.error('Error processing reset link:', err);
+            showToast('Ошибка при обработке ссылки восстановления', 'error');
+        }
+    }})
+async function handleResetPassword() {
+    const pass1 = document.getElementById('newPassword')?.value;
+    const pass2 = document.getElementById('confirmNewPassword')?.value;
+
+    if (!pass1 || !pass2) {
+        showToast(t('fillAllFields'), 'warning');
+        return;
+    }
+
+    if (pass1.length < 6) {
+        showToast('Пароль должен быть минимум 6 символов', 'warning');
+        return;
+    }
+
+    if (pass1 !== pass2) {
+        showToast('Пароли не совпадают', 'error');
+        return;
+    }
+
+    try {
+        const { error } = await supabaseClient.auth.updateUser({
+            password: pass1
+        });
+
+        if (error) {
+            showToast(error.message, 'error');
+            return;
+        }
+
+        // Clear the password reset mode flag
+        sessionStorage.removeItem('passwordResetMode');
+
+        showToast('Пароль успешно обновлен! Вы вошли в аккаунт.', 'success');
+
+        // Close modal and redirect to home
+        closeModal('authModal');
+        showHome();
+    } catch (err) {
+        console.error('Password update error:', err);
+        showToast('Ошибка при обновлении пароля: ' + err.message, 'error');
+    }
+}
+
 
 async function loadSession() {
     if (!supabaseClient) return;
@@ -2799,7 +3117,7 @@ function renderLibrary() {
     
     if (emptyState) emptyState.classList.add('hidden');
     
-    // Clear grid safely
+   // Clear grid safely
     grid.innerHTML = '';
 
     materials.forEach(material => {
