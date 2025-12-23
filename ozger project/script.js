@@ -124,7 +124,13 @@ const i18n = {
         resetPassword: 'Электрондық поштаңызға кіру рұқсатын қалпына келтіру үшін сілтеме жібереміз.',
         sendResetLink: 'Сілтеме жіберу',
         newPass: 'Жаңа құпия сөз',
+        resetTitle: 'Құпия сөзді қалпына келтіру',
         confNewPass: 'Жаңа құпия сөзді растаңыз',
+        fillAllResPass: 'Барлық өрістерді толтырыңыз',
+        passShortResPass: 'Құпия сөз кемінде 6 таңбадан тұруы керек',
+        notMatchResPass: 'Құпия сөздер сәйкес келмейді',
+        succResPass: 'Құпия сөз сәтті жаңартылды! Сіз жүйеге кірдіңіз.',
+        errResPass: 'Құпия сөзді жаңарту қатесі: ',
         loginSuccess: 'Сәтті кірдіңіз!',
         registerSuccess: 'Тіркелу сәтті! Email-ды тексеріңіз.',
         loginError: 'Кіру қатесі',
@@ -322,7 +328,13 @@ const i18n = {
         resetPassword: 'Мы отправим ссылку для восстановления доступа на ваш email',
         sendResetLink: 'Отправить ссылку',
         newPass: 'Новый пароль',
+        resetTitle: 'Сброс пароля',
         confNewPass: 'Подтвердите новый пароль',
+        fillAllResPass: 'Пожалуйста, заполните все поля',
+        passShortResPass: 'Пароль должен быть не менее 6 символов',
+        notMatchResPass: 'Пароли не совпадают',
+        succResPass: 'Пароль успешно обновлён! Вы вошли в аккаунт.',
+        errResPass: 'Ошибка при обновлении пароля: ',
         loginSuccess: 'Успешный вход!',
         registerSuccess: 'Регистрация успешна! Проверьте email.',
         loginError: 'Ошибка входа',
@@ -519,7 +531,13 @@ const i18n = {
         resetPassword: 'We will send restore access link to your email',
         sendResetLink: 'Send link',
         newPass: 'New Password',
+        resetTitle: 'Reset Password',
         confNewPass: 'Confirm New Password',
+        fillAllResPass: 'Please fill all fields',
+        passShortResPass: 'Password must be at least 6 characters',
+        notMatchResPass: 'Passwords do not match',
+        succResPass: 'Password successfully updated! You are logged in.',
+        errResPass: 'Error updating password: ',
         loginSuccess: 'Login successful!',
         registerSuccess: 'Registration successful! Check your email.',
         loginError: 'Login error',
@@ -1600,7 +1618,7 @@ function renderAuthForm(mode = 'login') {
         updateAuthSteps();
 
         if (container) {
-            title.textContent = 'Сброс пароля';
+            title.textContent = `${t('resetTitle')}`;
 
             const formHtml = `
                 <form class="auth-form" id="authForm">
@@ -2262,19 +2280,19 @@ async function handleResetPassword() {
         console.log('Empty password fields detected');
         const fillAllFieldsText = t('fillAllFields');
         console.log('fillAllFields translation:', fillAllFieldsText);
-        showToast(fillAllFieldsText || 'Заполните все поля', 'warning');
+        showToast(fillAllFieldsText || `${t('fillAllResPass')}`, 'warning');
         return;
     }
 
     if (pass1.length < 6) {
         console.log('Password too short:', pass1.length, 'characters');
-        showToast('Пароль должен быть минимум 6 символов', 'warning');
+        showToast(`${t('passShortResPass')}`, 'warning');
         return;
     }
 
     if (pass1 !== pass2) {
         console.log('Passwords do not match');
-        showToast('Пароли не совпадают', 'error');
+        showToast(`${t('notMatchResPass')}`, 'error');
         return;
     }
 
@@ -2304,7 +2322,7 @@ async function handleResetPassword() {
         sessionStorage.removeItem('passwordResetMode');
         console.log('Password reset flag cleared');
 
-        showToast('Пароль успешно обновлен! Вы вошли в аккаунт.', 'success');
+        showToast(`${t('succResPass')}`, 'success');
 
         // Close modal and redirect to home
         console.log('Closing modal and redirecting to home');
@@ -2313,7 +2331,7 @@ async function handleResetPassword() {
     } catch (err) {
         console.error('Password update error:', err);
         console.error('Error details:', err.message);
-        showToast('Ошибка при обновлении пароля: ' + err.message, 'error');
+        showToast(`${t('errResPass')}` + err.message, 'error');
     }
 }
 
