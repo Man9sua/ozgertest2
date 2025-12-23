@@ -123,6 +123,8 @@ const i18n = {
         forgotPassword: 'Құпия сөзді ұмыттыңыз ба?',
         resetPassword: 'Электрондық поштаңызға кіру рұқсатын қалпына келтіру үшін сілтеме жібереміз.',
         sendResetLink: 'Сілтеме жіберу',
+        newPass: 'Жаңа құпия сөз',
+        confNewPass: 'Жаңа құпия сөзді растаңыз',
         loginSuccess: 'Сәтті кірдіңіз!',
         registerSuccess: 'Тіркелу сәтті! Email-ды тексеріңіз.',
         loginError: 'Кіру қатесі',
@@ -319,6 +321,8 @@ const i18n = {
         forgotPassword: 'Забыли пароль?',
         resetPassword: 'Мы отправим ссылку для восстановления доступа на ваш email',
         sendResetLink: 'Отправить ссылку',
+        newPass: 'Новый пароль',
+        confNewPass: 'Подтвердите новый пароль',
         loginSuccess: 'Успешный вход!',
         registerSuccess: 'Регистрация успешна! Проверьте email.',
         loginError: 'Ошибка входа',
@@ -514,6 +518,8 @@ const i18n = {
         forgotPassword: 'Forgot password?',
         resetPassword: 'We will send restore access link to your email',
         sendResetLink: 'Send link',
+        newPass: 'New Password',
+        confNewPass: 'Confirm New Password',
         loginSuccess: 'Login successful!',
         registerSuccess: 'Registration successful! Check your email.',
         loginError: 'Login error',
@@ -1599,15 +1605,15 @@ function renderAuthForm(mode = 'login') {
             const formHtml = `
                 <form class="auth-form" id="authForm">
                     <div class="form-group">
-                        <label class="form-label">Новый пароль</label>
-                        <input type="password" class="form-input" id="newPassword" placeholder="Введите новый пароль" required>
+                        <label class="form-label">${t('newPass')}</label>
+                        <input type="password" class="form-input" id="newPassword" placeholder="${t('newPass')}" required>
                     </div>
                     <div class="form-group">
-                        <label class="form-label">Подтвердите пароль</label>
-                        <input type="password" class="form-input" id="confirmNewPassword" placeholder="Подтвердите новый пароль" required>
+                        <label class="form-label">${t('confNewPass')}</label>
+                        <input type="password" class="form-input" id="confirmNewPassword" placeholder="${t('confNewPass')}" required>
                     </div>
                     <button type="submit" class="btn btn-primary" style="width:100%;padding:14px;">
-                        Обновить пароль
+                        ${t('confResetPass')}
                     </button>
                 </form>
             `;
