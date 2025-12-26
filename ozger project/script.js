@@ -1695,7 +1695,7 @@ function renderAuthForm(mode = 'login') {
     if (isLogin) {
         regStep = 0;
         updateAuthSteps();
-        
+
         if (container) {
             container.innerHTML = `
                 <form class="auth-form" id="authForm">
@@ -1724,6 +1724,9 @@ function renderAuthForm(mode = 'login') {
                     <span class="auth-switch-link" id="authSwitchLink">${t('signUp')}</span>
                 </div>
             `;
+
+            // Load username if available
+            loadUsernameForLogin();
             
             document.getElementById('authForm')?.addEventListener('submit', (e) => {
                 e.preventDefault();
@@ -2002,6 +2005,10 @@ async function completeRegistration(password) {
             // Save profile locally
             userProfile = { ...regData };
             localStorage.setItem('ozgerUserProfile', JSON.stringify(userProfile));
+
+            // Save username to auth_audit table
+            await saveUsernameToAudit(regData.username, regData.email);
+
             showToast(t('registerSuccess'), 'success');
             closeModal('authModal');
             updateAuthUI();
@@ -2014,6 +2021,73 @@ async function completeRegistration(password) {
 
     } catch (error) {
         showToast(t('registerError') + ': ' + error.message, 'error');
+    }
+}
+
+// Save username to auth_audit table
+async function saveUsernameToAudit(username, email) {
+    if (!supabaseClient) return;
+
+    try {
+        const { data, error } = await supabaseClient
+            .from('auth_audit')
+            .insert([{ username: username, email: email }]);
+
+        if (error) {
+            console.error('Error saving username to audit table:', error);
+        }
+    } catch (error) {
+        console.error('Error saving username to audit table:', error);
+    }
+}
+
+// Get email by username from auth_audit table
+async function getEmailByUsername(username) {
+    if (!supabaseClient) return null;
+
+    try {
+        const { data, error } = await supabaseClient
+            .from('auth_audit')
+            .select('email')
+            .eq('username', username)
+            .single();
+
+        if (error || !data) {
+            return null;
+        }
+
+        return data.email;
+    } catch (error) {
+        console.error('Error getting email by username:', error);
+        return null;
+    }
+}
+
+// Load username for login form
+async function loadUsernameForLogin() {
+    // Try to get username from current user profile or localStorage
+    let username = null;
+
+    if (userProfile && userProfile.username) {
+        username = userProfile.username;
+    } else {
+        const savedProfile = localStorage.getItem('ozgerUserProfile');
+        if (savedProfile) {
+            try {
+                const profile = JSON.parse(savedProfile);
+                username = profile.username;
+            } catch (e) {
+                console.error('Error parsing saved profile:', e);
+            }
+        }
+    }
+
+    // If we have a username, populate the login field
+    if (username) {
+        const emailInput = document.getElementById('authEmail');
+        if (emailInput) {
+            emailInput.value = username;
+        }
     }
 }
 
@@ -2046,14 +2120,19 @@ async function handleAuth(isLogin) {
     
     try {
         if (isLogin) {
-            // Check if input is email or username
+            let emailToUse = emailOrUsername;
+
+            // Check if input is username (doesn't contain @) and convert to email
             if (!emailOrUsername.includes('@')) {
-                // Input looks like username, but we need email for Supabase auth
-                showToast(t('useEmailToLogin'), 'warning');
-                return;
+                const emailFromUsername = await getEmailByUsername(emailOrUsername);
+                if (!emailFromUsername) {
+                    showToast('Пользователь с таким именем не найден', 'warning');
+                    return;
+                }
+                emailToUse = emailFromUsername;
             }
 
-            const { data, error } = await supabaseClient.auth.signInWithPassword({ email: emailOrUsername, password });
+            const { data, error } = await supabaseClient.auth.signInWithPassword({ email: emailToUse, password });
             if (error) throw error;
             
             currentUser = data.user;
