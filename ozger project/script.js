@@ -1999,15 +1999,15 @@ async function completeRegistration(password) {
 
         if (error) throw error;
 
+        // Save username to auth_audit table regardless of email confirmation
+        await saveUsernameToAudit(regData.username, regData.email);
+
         // Check if user is immediately authenticated (email confirmation disabled)
         if (data.user && data.session) {
             currentUser = data.user;
             // Save profile locally
             userProfile = { ...regData };
             localStorage.setItem('ozgerUserProfile', JSON.stringify(userProfile));
-
-            // Save username to auth_audit table
-            await saveUsernameToAudit(regData.username, regData.email);
 
             showToast(t('registerSuccess'), 'success');
             closeModal('authModal');
@@ -2035,31 +2035,138 @@ async function saveUsernameToAudit(username, email) {
 
         if (error) {
             console.error('Error saving username to audit table:', error);
+            // Try alternative approach - save to profiles table
+            await saveUserProfileToDatabase(regData);
+        } else {
+            console.log('Username saved to auth_audit successfully');
         }
     } catch (error) {
         console.error('Error saving username to audit table:', error);
+        // Try alternative approach - save to profiles table
+        await saveUserProfileToDatabase(regData);
     }
 }
 
-// Get email by username from auth_audit table
+// Save complete user profile to profiles table
+async function saveUserProfileToDatabase(profileData) {
+    if (!supabaseClient) return;
+
+    try {
+        // Get current user ID
+        const { data: { user } } = await supabaseClient.auth.getUser();
+        if (!user) return;
+
+        const { data, error } = await supabaseClient
+            .from('profiles')
+            .upsert({
+                id: user.id,
+                username: profileData.username,
+                email: profileData.email,
+                country: profileData.country,
+                city: profileData.city,
+                school: profileData.school,
+                class: profileData.class,
+                class_digit: profileData.class_digit,
+                class_symbol: profileData.class_symbol,
+                subject_combination: profileData.subjectCombination,
+                subject1: profileData.subject1,
+                subject2: profileData.subject2,
+                created_at: new Date().toISOString(),
+                updated_at: new Date().toISOString()
+            });
+
+        if (error) {
+            console.error('Error saving profile to database:', error);
+        } else {
+            console.log('Profile saved to database successfully');
+        }
+    } catch (error) {
+        console.error('Error saving profile to database:', error);
+    }
+}
+
+// Get email by username from auth_audit table or profiles table
 async function getEmailByUsername(username) {
     if (!supabaseClient) return null;
 
     try {
-        const { data, error } = await supabaseClient
+        // First try auth_audit table
+        let { data, error } = await supabaseClient
             .from('auth_audit')
             .select('email')
             .eq('username', username)
             .single();
 
-        if (error || !data) {
-            return null;
+        if (data && !error) {
+            return data.email;
         }
 
-        return data.email;
+        // If not found in auth_audit, try profiles table
+        const { data: profileData, error: profileError } = await supabaseClient
+            .from('profiles')
+            .select('email')
+            .eq('username', username)
+            .single();
+
+        if (profileData && !profileError) {
+            return profileData.email;
+        }
+
+        return null;
     } catch (error) {
         console.error('Error getting email by username:', error);
         return null;
+    }
+}
+
+// Load user profile from database
+async function loadUserProfileFromDatabase() {
+    if (!supabaseClient || !currentUser) return;
+
+    try {
+        const { data, error } = await supabaseClient
+            .from('profiles')
+            .select('*')
+            .eq('id', currentUser.id)
+            .single();
+
+        if (data && !error) {
+            userProfile = {
+                username: data.username,
+                email: data.email,
+                country: data.country,
+                city: data.city,
+                school: data.school,
+                class: data.class,
+                class_digit: data.class_digit,
+                class_symbol: data.class_symbol,
+                subjectCombination: data.subject_combination,
+                subject1: data.subject1,
+                subject2: data.subject2
+            };
+            localStorage.setItem('ozgerUserProfile', JSON.stringify(userProfile));
+            console.log('Profile loaded from database:', userProfile);
+        } else {
+            // Fallback to user metadata if profile not found in database
+            if (currentUser.user_metadata) {
+                userProfile = {
+                    username: currentUser.user_metadata.username,
+                    email: currentUser.email,
+                    country: currentUser.user_metadata.country,
+                    city: currentUser.user_metadata.city,
+                    school: currentUser.user_metadata.school,
+                    class: currentUser.user_metadata.class,
+                    class_digit: currentUser.user_metadata.class_digit,
+                    class_symbol: currentUser.user_metadata.class_symbol,
+                    subjectCombination: currentUser.user_metadata.subjectCombination,
+                    subject1: currentUser.user_metadata.subject1,
+                    subject2: currentUser.user_metadata.subject2
+                };
+                localStorage.setItem('ozgerUserProfile', JSON.stringify(userProfile));
+            }
+        }
+    } catch (error) {
+        console.error('Error loading profile from database:', error);
     }
 }
 
@@ -2078,6 +2185,24 @@ async function loadUsernameForLogin() {
                 username = profile.username;
             } catch (e) {
                 console.error('Error parsing saved profile:', e);
+            }
+        } else if (supabaseClient) {
+            // Try to load from database if user is logged in
+            try {
+                const { data: { user } } = await supabaseClient.auth.getUser();
+                if (user) {
+                    const { data, error } = await supabaseClient
+                        .from('profiles')
+                        .select('username')
+                        .eq('id', user.id)
+                        .single();
+
+                    if (data && !error) {
+                        username = data.username;
+                    }
+                }
+            } catch (e) {
+                console.error('Error loading username from database:', e);
             }
         }
     }
@@ -2136,11 +2261,9 @@ async function handleAuth(isLogin) {
             if (error) throw error;
             
             currentUser = data.user;
-            
-            // Load user profile
-            if (!userProfile) {
-                userProfile = {};
-            }
+
+            // Load user profile from database
+            await loadUserProfileFromDatabase();
             
             // Update auth UI and close modal
             showToast(t('loginSuccess'), 'success');
