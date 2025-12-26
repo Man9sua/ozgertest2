@@ -1917,6 +1917,8 @@ function handleRegStep() {
         regData.classNumber = document.getElementById('regClassNumber')?.value;
         regData.classLetter = document.getElementById('regClassLetter')?.value;
         regData.class = regData.classNumber + regData.classLetter; // Combined: "10А"
+        regData.class_digit = regData.classNumber; // Separate digit field for database
+        regData.class_symbol = regData.classLetter; // Separate symbol field for database
         regData.subjectCombination = document.getElementById('regSubjectCombination')?.value;
         const parsed = parseSubjectCombination(regData.subjectCombination);
         regData.subject1 = parsed.subject1;
@@ -1953,6 +1955,8 @@ async function completeRegistration(password) {
             city: regData.city,
             school: regData.school,
             class: regData.class,
+            class_digit: regData.class_digit,
+            class_symbol: regData.class_symbol,
             subjectCombination: regData.subjectCombination,
             subject1: regData.subject1,
             subject2: regData.subject2,
@@ -1977,6 +1981,8 @@ async function completeRegistration(password) {
                     city: regData.city,
                     school: regData.school,
                     class: regData.class,
+                    class_digit: regData.class_digit,
+                    class_symbol: regData.class_symbol,
                     subjectCombination: regData.subjectCombination,
                     subject1: regData.subject1,
                     subject2: regData.subject2
