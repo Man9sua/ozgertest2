@@ -2427,6 +2427,12 @@ body {
     flex-shrink: 0;
 }
 
+.quicklook-icon svg {
+    width: 36px;
+    height: 36px;
+    fill: var(--text-on-primary);
+}
+
 .quicklook-info {
     flex: 1;
     min-width: 0;
@@ -2740,11 +2746,43 @@ body {
     grid-column: span 3;
     justify-content: center;
     background: var(--btn-gradient);
+    box-shadow: var(--shadow-md);
 }
 
 .ent-card-full span {
     color: var(--text-on-primary);
     font-weight: 600;
+}
+
+.ent-card-full .ent-icon-svg svg {
+    fill: var(--text-on-primary);
+}
+
+/* Theme-specific ent-card-full styles */
+[data-theme="dark"] .ent-card-full {
+    background: linear-gradient(135deg, #ffffff 0%, #d0d0d0 100%);
+}
+
+[data-theme="dark"] .ent-card-full .ent-icon-svg svg {
+    fill: #0a0a0f;
+}
+
+[data-theme="pixel"] .ent-card-full {
+    background: linear-gradient(180deg, #f4d35e 0%, #d4a543 100%);
+    border: 3px solid #ee964b;
+}
+
+[data-theme="pixel"] .ent-card-full .ent-icon-svg svg {
+    fill: #1a1c2c;
+}
+
+[data-theme="flow"] .ent-card-full {
+    background: linear-gradient(135deg, #00ff41 0%, #00cc33 100%);
+    box-shadow: 0 0 20px rgba(0, 255, 65, 0.4);
+}
+
+[data-theme="flow"] .ent-card-full .ent-icon-svg svg {
+    fill: #0a0a0f;
 }
 
 /* ==================== LIBRARY FILTERS ==================== */
@@ -3799,4 +3837,401 @@ body {
     .button-group .btn {
         width: 100%;
     }
+}
+
+/* ==================== SVG ICONS ==================== */
+/* Menu icon SVG */
+.menu-icon-svg {
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.menu-icon-svg svg {
+    width: 100%;
+    height: 100%;
+    fill: var(--text-primary);
+    transition: fill 0.3s ease;
+}
+
+.menu-item:hover .menu-icon-svg svg {
+    fill: var(--color-accent);
+}
+
+/* Action icon SVG (for action cards) */
+.action-icon-svg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.action-icon-svg svg {
+    width: 48px;
+    height: 48px;
+    fill: var(--color-accent);
+    transition: fill 0.3s ease, transform 0.3s ease;
+}
+
+.action-card:hover .action-icon-svg svg {
+    transform: scale(1.1);
+}
+
+/* ENT icon SVG */
+.ent-icon-svg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ent-icon-svg svg {
+    width: 28px;
+    height: 28px;
+    fill: var(--color-accent);
+    transition: fill 0.3s ease, transform 0.3s ease;
+}
+
+.ent-card:hover .ent-icon-svg svg {
+    transform: scale(1.15);
+}
+
+/* Theme variations for menu icons */
+[data-theme="dark"] .menu-icon-svg svg {
+    fill: rgba(255, 255, 255, 0.9);
+}
+
+[data-theme="dark"] .menu-item:hover .menu-icon-svg svg {
+    fill: #ffffff;
+}
+
+[data-theme="pixel"] .menu-icon-svg svg {
+    fill: var(--color-primary);
+}
+
+[data-theme="pixel"] .menu-item:hover .menu-icon-svg svg {
+    fill: var(--color-primary-light);
+    filter: drop-shadow(0 0 4px var(--color-primary));
+}
+
+[data-theme="flow"] .menu-icon-svg svg {
+    fill: rgba(255, 255, 255, 0.85);
+}
+
+[data-theme="flow"] .menu-item:hover .menu-icon-svg svg {
+    fill: var(--color-accent);
+    filter: drop-shadow(0 0 6px var(--color-accent));
+}
+
+/* Theme variations for action icons */
+[data-theme="dark"] .action-icon-svg svg {
+    fill: #ffffff;
+}
+
+[data-theme="pixel"] .action-icon-svg svg {
+    fill: var(--color-primary);
+    filter: drop-shadow(0 0 4px var(--color-primary));
+}
+
+[data-theme="flow"] .action-icon-svg svg {
+    fill: var(--color-accent);
+    filter: drop-shadow(0 0 6px var(--color-accent));
+}
+
+/* Theme variations for ENT icons */
+[data-theme="dark"] .ent-icon-svg svg {
+    fill: #ffffff;
+}
+
+[data-theme="pixel"] .ent-icon-svg svg {
+    fill: var(--color-primary);
+    filter: drop-shadow(0 0 3px var(--color-primary));
+}
+
+[data-theme="flow"] .ent-icon-svg svg {
+    fill: var(--color-accent);
+    filter: drop-shadow(0 0 4px var(--color-accent));
+}
+
+/* ==================== LIBRARY SVG ICONS ==================== */
+.material-badge-svg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.material-badge-svg svg {
+    width: 20px;
+    height: 20px;
+    fill: var(--color-accent);
+}
+
+.meta-item-svg {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.meta-item-svg svg {
+    width: 14px;
+    height: 14px;
+    fill: var(--text-muted);
+    flex-shrink: 0;
+}
+
+.action-btn-svg {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.action-btn-svg svg {
+    width: 16px;
+    height: 16px;
+    fill: currentColor;
+    flex-shrink: 0;
+}
+
+.favorite-active svg {
+    fill: #ffc107;
+}
+
+.delete-btn svg {
+    fill: #ff4757;
+}
+
+/* ==================== DELETE AVATAR BUTTON ==================== */
+.avatar-buttons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.delete-avatar-btn {
+    color: #ff4757 !important;
+    border-color: rgba(255, 71, 87, 0.3) !important;
+}
+
+.delete-avatar-btn:hover {
+    background: rgba(255, 71, 87, 0.1) !important;
+    border-color: rgba(255, 71, 87, 0.5) !important;
+}
+
+/* ==================== PASSWORD TOGGLE ==================== */
+.password-toggle-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 8px;
+}
+
+.password-toggle-checkbox {
+    display: none;
+}
+
+.password-toggle-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    user-select: none;
+}
+
+.password-toggle-icon {
+    width: 24px;
+    height: 24px;
+    border: 2px solid var(--border-color);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    background: var(--bg-glass);
+}
+
+.password-toggle-icon svg {
+    width: 16px;
+    height: 16px;
+    fill: var(--text-muted);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.password-toggle-checkbox:checked + .password-toggle-label .password-toggle-icon {
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+}
+
+.password-toggle-checkbox:checked + .password-toggle-label .password-toggle-icon svg {
+    opacity: 1;
+    fill: var(--text-on-primary);
+}
+
+/* Theme variations for password toggle */
+[data-theme="pixel"] .password-toggle-icon {
+    border-radius: 0;
+    box-shadow: var(--shadow-sm);
+}
+
+[data-theme="flow"] .password-toggle-icon {
+    border-radius: 8px;
+    backdrop-filter: blur(10px);
+}
+
+/* ==================== SCORE BUTTONS ==================== */
+.score-btn {
+    transition: all 0.2s ease;
+}
+
+.score-btn:hover {
+    transform: scale(1.05);
+}
+
+.score-btn:active {
+    transform: scale(0.95);
+}
+
+/* ==================== ENHANCED MOBILE EXPERIENCE ==================== */
+@media (max-width: 768px) {
+    /* Touch-friendly button sizes */
+    .btn {
+        min-height: 44px;
+        padding: 12px 20px;
+    }
+    
+    .btn-small {
+        min-height: 38px;
+        padding: 8px 16px;
+    }
+    
+    /* Better touch targets for menu items */
+    .menu-item {
+        min-height: 54px;
+        padding: 14px 18px;
+    }
+    
+    /* Improved form inputs for mobile */
+    .form-input,
+    .form-select,
+    .material-input {
+        min-height: 48px;
+        font-size: 16px; /* Prevents iOS zoom on focus */
+    }
+    
+    /* Swipe-friendly flashcard */
+    .flashcard {
+        touch-action: manipulation;
+    }
+    
+    /* Avatar buttons vertical on small screens */
+    .avatar-buttons {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .avatar-buttons .btn {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    /* Password toggle on mobile */
+    .password-toggle-wrapper {
+        margin-top: 12px;
+    }
+    
+    /* Better ENT grid on mobile */
+    .ent-grid {
+        gap: 10px;
+    }
+    
+    .ent-card {
+        padding: 12px;
+        font-size: 0.85rem;
+    }
+    
+    .ent-icon-svg svg {
+        width: 24px;
+        height: 24px;
+    }
+}
+
+/* Extra small devices */
+@media (max-width: 360px) {
+    .global-header {
+        height: 50px;
+    }
+    
+    .hamburger-btn,
+    .user-icon {
+        width: 38px;
+        height: 38px;
+    }
+    
+    .logo-text {
+        font-size: 1rem;
+    }
+    
+    .main-title {
+        font-size: clamp(2rem, 18vw, 4rem);
+    }
+    
+    .home-container {
+        padding: 10px;
+    }
+    
+    .home-section {
+        padding: 15px;
+    }
+    
+    .section-title {
+        font-size: 1.1rem;
+    }
+    
+    .action-card {
+        padding: 15px;
+    }
+    
+    .action-icon-svg svg {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .action-card h3 {
+        font-size: 0.9rem;
+    }
+    
+    .action-card p {
+        font-size: 0.75rem;
+    }
+}
+
+/* Safe area for notched devices */
+@supports (padding-top: env(safe-area-inset-top)) {
+    .global-header {
+        padding-top: env(safe-area-inset-top);
+        height: calc(55px + env(safe-area-inset-top));
+    }
+    
+    .page-content {
+        padding-top: calc(70px + env(safe-area-inset-top));
+    }
+    
+    .main-content {
+        padding-top: calc(70px + env(safe-area-inset-top));
+    }
+    
+}
+
+/* ==================== PIXEL STYLE MAIN TITLE FIX ==================== */
+[data-theme="pixel"] .main-title {
+    font-size: clamp(3rem, 10vw, 6rem);
+}
+
+/* ==================== FLOW STYLE TITLE CURSOR FIX ==================== */
+[data-theme="flow"] .title-cursor {
+    height: 1.2em;
 }

@@ -123,14 +123,6 @@ const i18n = {
         forgotPassword: 'Құпия сөзді ұмыттыңыз ба?',
         resetPassword: 'Электрондық поштаңызға кіру рұқсатын қалпына келтіру үшін сілтеме жібереміз.',
         sendResetLink: 'Сілтеме жіберу',
-        newPass: 'Жаңа құпия сөз',
-        resetTitle: 'Құпия сөзді қалпына келтіру',
-        confNewPass: 'Жаңа құпия сөзді растаңыз',
-        fillAllResPass: 'Барлық өрістерді толтырыңыз',
-        passShortResPass: 'Құпия сөз кемінде 6 таңбадан тұруы керек',
-        notMatchResPass: 'Құпия сөздер сәйкес келмейді',
-        succResPass: 'Құпия сөз сәтті жаңартылды! Сіз жүйеге кірдіңіз.',
-        errResPass: 'Құпия сөзді жаңарту қатесі: ',
         loginSuccess: 'Сәтті кірдіңіз!',
         registerSuccess: 'Тіркелу сәтті! Email-ды тексеріңіз.',
         loginError: 'Кіру қатесі',
@@ -261,7 +253,23 @@ const i18n = {
         students: 'оқушы',
         noClassmates: 'Сыныптастар табылмады',
         noRatings: 'Рейтинг әзірге бос',
-        you: 'Сіз'
+        you: 'Сіз',
+        // Delete avatar & combinations
+        deleteAvatar: 'Аватарды өшіру',
+        avatarDeleted: 'Аватар сәтті өшірілді!',
+        profileCombination: 'Профильдік комбинация',
+        comboInformaticsMath: 'Информатика - Математика',
+        comboGeographyMath: 'География - Математика',
+        comboPhysicsMath: 'Физика - Математика',
+        comboBiologyChemistry: 'Биология - Химия',
+        comboBiologyGeography: 'Биология - География',
+        comboHistoryEnglish: 'Дүниежүзі тарихы - Ағылшын',
+        comboHistoryLaw: 'Дүниежүзі тарихы - Құқық',
+        comboCreative: 'Шығармашылық',
+        showPassword: 'Құпия сөзді көрсету',
+        upload: 'Жүктеу',
+        rating: 'Рейтинг',
+        all: 'Барлығы'
     },
     ru: {
         menu: 'Меню',
@@ -327,14 +335,6 @@ const i18n = {
         forgotPassword: 'Забыли пароль?',
         resetPassword: 'Мы отправим ссылку для восстановления доступа на ваш email',
         sendResetLink: 'Отправить ссылку',
-        newPass: 'Новый пароль',
-        resetTitle: 'Сброс пароля',
-        confNewPass: 'Подтвердите новый пароль',
-        fillAllResPass: 'Пожалуйста, заполните все поля',
-        passShortResPass: 'Пароль должен быть не менее 6 символов',
-        notMatchResPass: 'Пароли не совпадают',
-        succResPass: 'Пароль успешно обновлён! Вы вошли в аккаунт.',
-        errResPass: 'Ошибка при обновлении пароля: ',
         loginSuccess: 'Успешный вход!',
         registerSuccess: 'Регистрация успешна! Проверьте email.',
         loginError: 'Ошибка входа',
@@ -464,7 +464,23 @@ const i18n = {
         students: 'учеников',
         noClassmates: 'Одноклассники не найдены',
         noRatings: 'Рейтинг пока пуст',
-        you: 'Вы'
+        you: 'Вы',
+        // Delete avatar & combinations
+        deleteAvatar: 'Удалить аватар',
+        avatarDeleted: 'Аватар успешно удалён!',
+        profileCombination: 'Профильная комбинация',
+        comboInformaticsMath: 'Информатика - Математика',
+        comboGeographyMath: 'География - Математика',
+        comboPhysicsMath: 'Физика - Математика',
+        comboBiologyChemistry: 'Биология - Химия',
+        comboBiologyGeography: 'Биология - География',
+        comboHistoryEnglish: 'Всемирная история - Английский',
+        comboHistoryLaw: 'Всемирная история - Право',
+        comboCreative: 'Творческий',
+        showPassword: 'Показать пароль',
+        upload: 'Загрузить',
+        rating: 'Рейтинг',
+        all: 'Все'
     },
     en: {
         menu: 'Menu',
@@ -530,14 +546,6 @@ const i18n = {
         forgotPassword: 'Forgot password?',
         resetPassword: 'We will send restore access link to your email',
         sendResetLink: 'Send link',
-        newPass: 'New Password',
-        resetTitle: 'Reset Password',
-        confNewPass: 'Confirm New Password',
-        fillAllResPass: 'Please fill all fields',
-        passShortResPass: 'Password must be at least 6 characters',
-        notMatchResPass: 'Passwords do not match',
-        succResPass: 'Password successfully updated! You are logged in.',
-        errResPass: 'Error updating password: ',
         loginSuccess: 'Login successful!',
         registerSuccess: 'Registration successful! Check your email.',
         loginError: 'Login error',
@@ -667,7 +675,23 @@ const i18n = {
         students: 'students',
         noClassmates: 'No classmates found',
         noRatings: 'No ratings yet',
-        you: 'You'
+        you: 'You',
+        // Delete avatar & combinations
+        deleteAvatar: 'Delete avatar',
+        avatarDeleted: 'Avatar deleted successfully!',
+        profileCombination: 'Profile combination',
+        comboInformaticsMath: 'Informatics - Math',
+        comboGeographyMath: 'Geography - Math',
+        comboPhysicsMath: 'Physics - Math',
+        comboBiologyChemistry: 'Biology - Chemistry',
+        comboBiologyGeography: 'Biology - Geography',
+        comboHistoryEnglish: 'World History - English',
+        comboHistoryLaw: 'World History - Law',
+        comboCreative: 'Creative',
+        showPassword: 'Show password',
+        upload: 'Upload',
+        rating: 'Rating',
+        all: 'All'
     }
 };
 
@@ -695,63 +719,6 @@ const libraryMaterials = [
         count: 10,
         category: 'history',
         content: sampleMaterial
-    },
-    {
-        id: 2,
-        title: 'Математика формулалары',
-        author: 'Әкімше',
-        count: 8,
-        category: 'math',
-        content: `1. Квадрат теңдеу формуласы: x = (-b ± √(b²-4ac)) / 2a
-2. Пифагор теоремасы: a² + b² = c²
-3. Шеңбер ауданы: S = πr²
-4. Үшбұрыш ауданы: S = (a × h) / 2
-5. Тіктөртбұрыш ауданы: S = a × b
-6. Параллелограмм ауданы: S = a × h
-7. Трапеция ауданы: S = ((a + b) × h) / 2
-8. Шар көлемі: V = (4/3)πr³`
-    },
-    {
-        id: 3,
-        title: 'English Vocabulary',
-        author: 'Admin',
-        count: 6,
-        category: 'language',
-        content: `1. Persistent: Continuing firmly despite difficulties
-2. Ambiguous: Having more than one meaning
-3. Eloquent: Fluent and persuasive in speaking
-4. Pragmatic: Dealing with things sensibly
-5. Resilient: Able to recover quickly
-6. Meticulous: Showing great attention to detail`
-    },
-    {
-        id: 4,
-        title: 'Биология: Адам денесі',
-        author: 'Әкімше',
-        count: 8,
-        category: 'science',
-        content: `1. Адам денесіндегі сүйектер саны: 206
-2. Қанның негізгі функциясы: Оттегін тасымалдау
-3. Жүректің бөліктері: 4 камера (2 жүрекше, 2 қарынша)
-4. Өкпе функциясы: Газ алмасу
-5. Бүйректің функциясы: Қанды сүзу
-6. Миға оттегі жеткізетін: Қызыл қан жасушалары
-7. Асқорыту жүйесі басталады: Ауыз қуысы
-8. Тері функциясы: Қорғау, терморегуляция`
-    },
-    {
-        id: 5,
-        title: 'Әлем географиясы',
-        author: 'Admin',
-        count: 7,
-        category: 'geography',
-        content: `1. Әлемдегі ең үлкен мұхит: Тынық мұхит
-2. Әлемдегі ең ұзын өзен: Ніл өзені
-3. Әлемдегі ең биік тау: Эверест (8848.86 м)
-4. Әлемдегі ең үлкен ел: Ресей
-5. Әлемдегі ең кішкентай ел: Ватикан
-6. Әлемдегі ең терең көл: Байкал көлі
-7. Континенттер саны: 7`
     }
 ];
 
@@ -1119,14 +1086,9 @@ function renderProfilePage() {
         classLetterSelect.value = profile.class.substring(2);
     }
     
-    const subject1Select = document.getElementById('profilePageSubject1');
-    if (subject1Select && profile.subject1) {
-        subject1Select.value = profile.subject1;
-    }
-    
-    const subject2Select = document.getElementById('profilePageSubject2');
-    if (subject2Select && profile.subject2) {
-        subject2Select.value = profile.subject2;
+    const comboSelect = document.getElementById('profilePageSubjectCombination');
+    if (comboSelect && profile.subjectCombination) {
+        comboSelect.value = profile.subjectCombination;
     }
     
     // Update ENT section with profile subjects
@@ -1156,6 +1118,35 @@ function updateProfileField(field) {
     }
 }
 
+function updateProfileCombination() {
+    if (!userProfile) userProfile = {};
+    
+    const combo = document.getElementById('profilePageSubjectCombination')?.value;
+    if (combo) {
+        userProfile.subjectCombination = combo;
+        const parsed = parseSubjectCombination(combo);
+        userProfile.subject1 = parsed.subject1;
+        userProfile.subject2 = parsed.subject2;
+        localStorage.setItem('ozgerUserProfile', JSON.stringify(userProfile));
+        showToast(t('profileUpdated'), 'success');
+        updateENTProfileSubjects();
+    }
+}
+
+function parseSubjectCombination(combo) {
+    const combinations = {
+        'informatics-math': { subject1: 'informatics', subject2: 'math' },
+        'geography-math': { subject1: 'geography', subject2: 'math' },
+        'physics-math': { subject1: 'physics', subject2: 'math' },
+        'biology-chemistry': { subject1: 'biology', subject2: 'chemistry' },
+        'biology-geography': { subject1: 'biology', subject2: 'geography' },
+        'history-english': { subject1: 'world_history', subject2: 'english' },
+        'history-law': { subject1: 'world_history', subject2: 'law' },
+        'creative': { subject1: 'creative', subject2: 'creative' }
+    };
+    return combinations[combo] || { subject1: 'math', subject2: 'physics' };
+}
+
 function updateClassField() {
     if (!userProfile) userProfile = {};
     
@@ -1175,6 +1166,19 @@ function updateENTProfileSubjects() {
     const subjectNames = getSubjectNames();
     const profile = userProfile || {};
     
+    // Check for creative combination - hide profile subjects
+    const entProfile1 = document.getElementById('entProfile1');
+    const entProfile2 = document.getElementById('entProfile2');
+    
+    if (profile.subjectCombination === 'creative') {
+        if (entProfile1) entProfile1.style.display = 'none';
+        if (entProfile2) entProfile2.style.display = 'none';
+        return;
+    } else {
+        if (entProfile1) entProfile1.style.display = '';
+        if (entProfile2) entProfile2.style.display = '';
+    }
+    
     const name1 = document.getElementById('entProfile1Name');
     if (name1) {
         name1.textContent = profile.subject1 ? subjectNames[profile.subject1] : t('profileSubject1');
@@ -1185,26 +1189,27 @@ function updateENTProfileSubjects() {
         name2.textContent = profile.subject2 ? subjectNames[profile.subject2] : t('profileSubject2');
     }
     
-    // Update icons based on subject
-    const subjectIcons = {
-        math: '📐',
-        physics: '⚡',
-        chemistry: '🧪',
-        biology: '🧬',
-        geography: '🌍',
-        world_history: '📜',
-        english: '🇬🇧',
-        informatics: '💻'
+    // Update SVG icons based on subject
+    const subjectSVGs = {
+        math: '<svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14h-2v-4H8v-2h4V7h2v4h4v2h-4v4z"/></svg>',
+        physics: '<svg viewBox="0 0 24 24"><path d="M19.8 18.4L14 10.67V6.5l1.35-1.69c.26-.33.03-.81-.39-.81H9.04c-.42 0-.65.48-.39.81L10 6.5v4.17L4.2 18.4c-.49.66-.02 1.6.8 1.6h14c.82 0 1.29-.94.8-1.6z"/></svg>',
+        chemistry: '<svg viewBox="0 0 24 24"><path d="M19.8 18.4L14 10.67V6.5l1.35-1.69c.26-.33.03-.81-.39-.81H9.04c-.42 0-.65.48-.39.81L10 6.5v4.17L4.2 18.4c-.49.66-.02 1.6.8 1.6h14c.82 0 1.29-.94.8-1.6z"/></svg>',
+        biology: '<svg viewBox="0 0 24 24"><path d="M17 15h2v2h-2zm0-4h2v2h-2zm0-4h2v2h-2zm-6 6.03l-3.03-3.03L7 11l5 5 5-5-.97-.97L13 13.03V4h-2v9.03z"/></svg>',
+        geography: '<svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>',
+        world_history: '<svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>',
+        english: '<svg viewBox="0 0 24 24"><path d="M12.87 15.07l-2.54-2.51.03-.03A17.52 17.52 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12zm-2.62 7l1.62-4.33L19.12 17h-3.24z"/></svg>',
+        informatics: '<svg viewBox="0 0 24 24"><path d="M20 18c1.1 0 1.99-.9 1.99-2L22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2H0v2h24v-2h-4zM4 6h16v10H4V6z"/></svg>',
+        law: '<svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>'
     };
     
-    const icon1 = document.querySelector('#entProfile1 .ent-icon');
-    if (icon1 && profile.subject1) {
-        icon1.textContent = subjectIcons[profile.subject1] || '📐';
+    const icon1 = document.querySelector('#entProfile1Icon');
+    if (icon1 && profile.subject1 && subjectSVGs[profile.subject1]) {
+        icon1.innerHTML = subjectSVGs[profile.subject1];
     }
     
-    const icon2 = document.querySelector('#entProfile2 .ent-icon');
-    if (icon2 && profile.subject2) {
-        icon2.textContent = subjectIcons[profile.subject2] || '🔬';
+    const icon2 = document.querySelector('#entProfile2Icon');
+    if (icon2 && profile.subject2 && subjectSVGs[profile.subject2]) {
+        icon2.innerHTML = subjectSVGs[profile.subject2];
     }
 }
 
@@ -1618,20 +1623,20 @@ function renderAuthForm(mode = 'login') {
         updateAuthSteps();
 
         if (container) {
-            title.textContent = `${t('resetTitle')}`;
+            title.textContent = 'Сброс пароля';
 
             const formHtml = `
                 <form class="auth-form" id="authForm">
                     <div class="form-group">
-                        <label class="form-label">${t('newPass')}</label>
-                        <input type="password" class="form-input" id="newPassword" placeholder="${t('newPass')}" required>
+                        <label class="form-label">Новый пароль</label>
+                        <input type="password" class="form-input" id="newPassword" placeholder="Введите новый пароль" required>
                     </div>
                     <div class="form-group">
-                        <label class="form-label">${t('confNewPass')}</label>
-                        <input type="password" class="form-input" id="confirmNewPassword" placeholder="${t('confNewPass')}" required>
+                        <label class="form-label">Подтвердите пароль</label>
+                        <input type="password" class="form-input" id="confirmNewPassword" placeholder="Подтвердите новый пароль" required>
                     </div>
                     <button type="submit" class="btn btn-primary" style="width:100%;padding:14px;">
-                        ${t('confResetPass')}
+                        Обновить пароль
                     </button>
                 </form>
             `;
@@ -1696,6 +1701,15 @@ function renderAuthForm(mode = 'login') {
                     </div>
                     <div class="form-group">
                         <input type="password" class="form-input" id="authPassword" placeholder="${t('passwordPlaceholder')}" required>
+                        <div class="password-toggle-wrapper">
+                            <input type="checkbox" id="showPasswordLogin" class="password-toggle-checkbox">
+                            <label for="showPasswordLogin" class="password-toggle-label">
+                                <span class="password-toggle-icon">
+                                    <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                                </span>
+                                <span>${t('showPassword')}</span>
+                            </label>
+                        </div>
                     </div>
                      <span class="auth-switch-link" id="forgotPassword">${t('forgotPassword')}</span>
                     <button type="submit" class="btn btn-primary" style="width: 100%; padding: 14px;">
@@ -1711,6 +1725,13 @@ function renderAuthForm(mode = 'login') {
             document.getElementById('authForm')?.addEventListener('submit', (e) => {
                 e.preventDefault();
                 handleAuth(true);
+            });
+            
+            document.getElementById('showPasswordLogin')?.addEventListener('change', (e) => {
+                const passwordField = document.getElementById('authPassword');
+                if (passwordField) {
+                    passwordField.type = e.target.checked ? 'text' : 'password';
+                }
             });
             
             document.getElementById('forgotPassword')?.addEventListener('click', () => {
@@ -1796,32 +1817,18 @@ function renderAuthForm(mode = 'login') {
                             </select>
                         </div>
                     </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label class="form-label">${t('profileSubject1')}</label>
-                            <select class="form-input form-select" id="regSubject1">
-                                <option value="math" ${regData.subject1 === 'math' ? 'selected' : ''}>Математика</option>
-                                <option value="physics" ${regData.subject1 === 'physics' ? 'selected' : ''}>Физика</option>
-                                <option value="chemistry" ${regData.subject1 === 'chemistry' ? 'selected' : ''}>Химия</option>
-                                <option value="biology" ${regData.subject1 === 'biology' ? 'selected' : ''}>Биология</option>
-                                <option value="geography" ${regData.subject1 === 'geography' ? 'selected' : ''}>География</option>
-                                <option value="world_history" ${regData.subject1 === 'world_history' ? 'selected' : ''}>Дүниежүзі тарихы</option>
-                                <option value="english" ${regData.subject1 === 'english' ? 'selected' : ''}>Ағылшын тілі</option>
-                                <option value="informatics" ${regData.subject1 === 'informatics' ? 'selected' : ''}>Информатика</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">${t('profileSubject2')}</label>
-                            <select class="form-input form-select" id="regSubject2">
-                                <option value="physics" ${regData.subject2 === 'physics' ? 'selected' : ''}>Физика</option>
-                                <option value="chemistry" ${regData.subject2 === 'chemistry' ? 'selected' : ''}>Химия</option>
-                                <option value="biology" ${regData.subject2 === 'biology' ? 'selected' : ''}>Биология</option>
-                                <option value="geography" ${regData.subject2 === 'geography' ? 'selected' : ''}>География</option>
-                                <option value="world_history" ${regData.subject2 === 'world_history' ? 'selected' : ''}>Дүниежүзі тарихы</option>
-                                <option value="english" ${regData.subject2 === 'english' ? 'selected' : ''}>Ағылшын тілі</option>
-                                <option value="informatics" ${regData.subject2 === 'informatics' ? 'selected' : ''}>Информатика</option>
-                            </select>
-                        </div>
+                    <div class="form-group">
+                        <label class="form-label">${t('profileCombination')}</label>
+                        <select class="form-input form-select" id="regSubjectCombination">
+                            <option value="informatics-math" ${regData.subjectCombination === 'informatics-math' ? 'selected' : ''}>${t('comboInformaticsMath')}</option>
+                            <option value="geography-math" ${regData.subjectCombination === 'geography-math' ? 'selected' : ''}>${t('comboGeographyMath')}</option>
+                            <option value="physics-math" ${regData.subjectCombination === 'physics-math' ? 'selected' : ''}>${t('comboPhysicsMath')}</option>
+                            <option value="biology-chemistry" ${regData.subjectCombination === 'biology-chemistry' ? 'selected' : ''}>${t('comboBiologyChemistry')}</option>
+                            <option value="biology-geography" ${regData.subjectCombination === 'biology-geography' ? 'selected' : ''}>${t('comboBiologyGeography')}</option>
+                            <option value="history-english" ${regData.subjectCombination === 'history-english' ? 'selected' : ''}>${t('comboHistoryEnglish')}</option>
+                            <option value="history-law" ${regData.subjectCombination === 'history-law' ? 'selected' : ''}>${t('comboHistoryLaw')}</option>
+                            <option value="creative" ${regData.subjectCombination === 'creative' ? 'selected' : ''}>${t('comboCreative')}</option>
+                        </select>
                     </div>
                     <div class="step-nav">
                         <button type="button" class="btn btn-ghost" onclick="prevRegStep()">← ${t('prevStep')}</button>
@@ -1843,6 +1850,15 @@ function renderAuthForm(mode = 'login') {
                     <div class="form-group">
                         <label class="form-label">${t('confirmPassword')}</label>
                         <input type="password" class="form-input" id="regPasswordConfirm" placeholder="${t('confirmPassword')}" required>
+                        <div class="password-toggle-wrapper">
+                            <input type="checkbox" id="showPasswordReg" class="password-toggle-checkbox">
+                            <label for="showPasswordReg" class="password-toggle-label">
+                                <span class="password-toggle-icon">
+                                    <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                                </span>
+                                <span>${t('showPassword')}</span>
+                            </label>
+                        </div>
                     </div>
                     <div class="step-nav">
                         <button type="button" class="btn btn-ghost" onclick="prevRegStep()">← ${t('prevStep')}</button>
@@ -1850,6 +1866,17 @@ function renderAuthForm(mode = 'login') {
                     </div>
                 </form>
             `;
+            
+            // Add password toggle handler for registration
+            setTimeout(() => {
+                document.getElementById('showPasswordReg')?.addEventListener('change', (e) => {
+                    const passwordField = document.getElementById('regPassword');
+                    const confirmField = document.getElementById('regPasswordConfirm');
+                    const type = e.target.checked ? 'text' : 'password';
+                    if (passwordField) passwordField.type = type;
+                    if (confirmField) confirmField.type = type;
+                });
+            }, 0);
         }
         
         document.getElementById('authForm')?.addEventListener('submit', (e) => {
@@ -1890,8 +1917,10 @@ function handleRegStep() {
         regData.classNumber = document.getElementById('regClassNumber')?.value;
         regData.classLetter = document.getElementById('regClassLetter')?.value;
         regData.class = regData.classNumber + regData.classLetter; // Combined: "10А"
-        regData.subject1 = document.getElementById('regSubject1')?.value;
-        regData.subject2 = document.getElementById('regSubject2')?.value;
+        regData.subjectCombination = document.getElementById('regSubjectCombination')?.value;
+        const parsed = parseSubjectCombination(regData.subjectCombination);
+        regData.subject1 = parsed.subject1;
+        regData.subject2 = parsed.subject2;
         
         regStep = 3;
         renderAuthForm('register');
@@ -1924,6 +1953,7 @@ async function completeRegistration(password) {
             city: regData.city,
             school: regData.school,
             class: regData.class,
+            subjectCombination: regData.subjectCombination,
             subject1: regData.subject1,
             subject2: regData.subject2,
             email: regData.email
@@ -1947,6 +1977,7 @@ async function completeRegistration(password) {
                     city: regData.city,
                     school: regData.school,
                     class: regData.class,
+                    subjectCombination: regData.subjectCombination,
                     subject1: regData.subject1,
                     subject2: regData.subject2
                 },
@@ -2280,19 +2311,19 @@ async function handleResetPassword() {
         console.log('Empty password fields detected');
         const fillAllFieldsText = t('fillAllFields');
         console.log('fillAllFields translation:', fillAllFieldsText);
-        showToast(fillAllFieldsText || `${t('fillAllResPass')}`, 'warning');
+        showToast(fillAllFieldsText || 'Заполните все поля', 'warning');
         return;
     }
 
     if (pass1.length < 6) {
         console.log('Password too short:', pass1.length, 'characters');
-        showToast(`${t('passShortResPass')}`, 'warning');
+        showToast('Пароль должен быть минимум 6 символов', 'warning');
         return;
     }
 
     if (pass1 !== pass2) {
         console.log('Passwords do not match');
-        showToast(`${t('notMatchResPass')}`, 'error');
+        showToast('Пароли не совпадают', 'error');
         return;
     }
 
@@ -2322,7 +2353,7 @@ async function handleResetPassword() {
         sessionStorage.removeItem('passwordResetMode');
         console.log('Password reset flag cleared');
 
-        showToast(`${t('succResPass')}`, 'success');
+        showToast('Пароль успешно обновлен! Вы вошли в аккаунт.', 'success');
 
         // Close modal and redirect to home
         console.log('Closing modal and redirecting to home');
@@ -2331,7 +2362,7 @@ async function handleResetPassword() {
     } catch (err) {
         console.error('Password update error:', err);
         console.error('Error details:', err.message);
-        showToast(`${t('errResPass')}` + err.message, 'error');
+        showToast('Ошибка при обновлении пароля: ' + err.message, 'error');
     }
 }
 
@@ -2502,6 +2533,65 @@ function updateAvatarUI(url) {
         modalAvatarImg.classList.remove('hidden');
         document.getElementById('modalAvatarPlaceholder')?.classList.add('hidden');
     }
+    
+    // Show/hide delete avatar button
+    const deleteBtn = document.getElementById('deleteAvatarBtn');
+    if (deleteBtn) {
+        deleteBtn.classList.toggle('hidden', !url);
+    }
+}
+
+async function deleteAvatar() {
+    userAvatar = null;
+    localStorage.removeItem('ozgerAvatar');
+    
+    if (currentUser && supabaseClient) {
+        try {
+            await supabaseClient.auth.updateUser({
+                data: { avatar_url: null }
+            });
+        } catch (err) {
+            console.warn('Could not delete avatar from server:', err);
+        }
+    }
+    
+    // Reset all avatar UIs
+    const userAvatarEl = document.getElementById('userAvatar');
+    const profileAvatar = document.getElementById('profileAvatar');
+    const modalAvatarImg = document.getElementById('modalAvatarImg');
+    const pageAvatarImg = document.getElementById('pageAvatarImg');
+    
+    if (userAvatarEl) {
+        userAvatarEl.src = '';
+        userAvatarEl.classList.add('hidden');
+        document.getElementById('userIconText')?.classList.remove('hidden');
+    }
+    
+    if (profileAvatar) {
+        profileAvatar.src = '';
+        profileAvatar.classList.add('hidden');
+        document.getElementById('profilePlaceholder')?.classList.remove('hidden');
+    }
+    
+    if (modalAvatarImg) {
+        modalAvatarImg.src = '';
+        modalAvatarImg.classList.add('hidden');
+        document.getElementById('modalAvatarPlaceholder')?.classList.remove('hidden');
+    }
+    
+    if (pageAvatarImg) {
+        pageAvatarImg.src = '';
+        pageAvatarImg.classList.add('hidden');
+        document.getElementById('pageAvatarPlaceholder')?.classList.remove('hidden');
+    }
+    
+    // Hide delete button
+    const deleteBtn = document.getElementById('deleteAvatarBtn');
+    if (deleteBtn) {
+        deleteBtn.classList.add('hidden');
+    }
+    
+    showToast(t('avatarDeleted'), 'success');
 }
 
 // ==================== INPUT SECTION ====================
@@ -3282,7 +3372,7 @@ function renderLibrary() {
     materials.forEach(material => {
         const isFavorite = favorites.includes(material.id);
         const isOwn = material.isUserMaterial || false;
-        const categoryIcon = getCategoryIcon(material.category);
+        const categorySvg = getCategoryIcon(material.category, true);
 
         const card = document.createElement('div');
         card.className = 'material-card';
@@ -3296,8 +3386,8 @@ function renderLibrary() {
         title.textContent = material.title;
 
         const badge = document.createElement('div');
-        badge.className = 'material-card-badge';
-        badge.textContent = categoryIcon;
+        badge.className = 'material-card-badge material-badge-svg';
+        badge.innerHTML = categorySvg;
 
         header.appendChild(title);
         header.appendChild(badge);
@@ -3306,10 +3396,12 @@ function renderLibrary() {
         meta.className = 'material-card-meta';
 
         const authorSpan = document.createElement('span');
-        authorSpan.textContent = `👤 ${material.author}`;
+        authorSpan.className = 'meta-item-svg';
+        authorSpan.innerHTML = `<svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg> ${material.author}`;
 
         const countSpan = document.createElement('span');
-        countSpan.textContent = `📝 ${material.count} ${t('questions')}`;
+        countSpan.className = 'meta-item-svg';
+        countSpan.innerHTML = `<svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg> ${material.count} ${t('questions')}`;
 
         meta.appendChild(authorSpan);
         meta.appendChild(countSpan);
@@ -3319,13 +3411,15 @@ function renderLibrary() {
         actions.onclick = event.stopPropagation;
 
         const useBtn = document.createElement('button');
-        useBtn.className = 'card-action-btn';
-        useBtn.textContent = `🚀 ${t('useMaterial')}`;
+        useBtn.className = 'card-action-btn action-btn-svg';
+        useBtn.innerHTML = `<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg> ${t('useMaterial')}`;
         useBtn.onclick = () => useMaterial(material.id, isOwn);
 
         const favoriteBtn = document.createElement('button');
-        favoriteBtn.className = `card-action-btn ${isFavorite ? 'favorite-active' : ''}`;
-        favoriteBtn.textContent = isFavorite ? '⭐' : '☆';
+        favoriteBtn.className = `card-action-btn action-btn-svg ${isFavorite ? 'favorite-active' : ''}`;
+        favoriteBtn.innerHTML = isFavorite 
+            ? '<svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>' 
+            : '<svg viewBox="0 0 24 24"><path d="M22 9.24l-7.19-.62L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.63-7.03L22 9.24zM12 15.4l-3.76 2.27 1-4.28-3.32-2.88 4.38-.38L12 6.1l1.71 4.04 4.38.38-3.32 2.88 1 4.28L12 15.4z"/></svg>';
         favoriteBtn.onclick = () => toggleFavorite(material.id, isOwn);
 
         actions.appendChild(useBtn);
@@ -3333,8 +3427,8 @@ function renderLibrary() {
 
         if (isOwn) {
             const deleteBtn = document.createElement('button');
-            deleteBtn.className = 'card-action-btn delete-btn';
-            deleteBtn.textContent = '🗑️';
+            deleteBtn.className = 'card-action-btn delete-btn action-btn-svg';
+            deleteBtn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>';
             deleteBtn.onclick = () => showDeleteConfirm(material.id);
             actions.appendChild(deleteBtn);
         }
@@ -3347,7 +3441,19 @@ function renderLibrary() {
     });
 }
 
-function getCategoryIcon(category) {
+function getCategoryIcon(category, asSvg = false) {
+    if (asSvg) {
+        const svgIcons = {
+            history: '<svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>',
+            math: '<svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14h-2v-4H8v-2h4V7h2v4h4v2h-4v4z"/></svg>',
+            science: '<svg viewBox="0 0 24 24"><path d="M19.8 18.4L14 10.67V6.5l1.35-1.69c.26-.33.03-.81-.39-.81H9.04c-.42 0-.65.48-.39.81L10 6.5v4.17L4.2 18.4c-.49.66-.02 1.6.8 1.6h14c.82 0 1.29-.94.8-1.6z"/></svg>',
+            language: '<svg viewBox="0 0 24 24"><path d="M12.87 15.07l-2.54-2.51.03-.03A17.52 17.52 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12zm-2.62 7l1.62-4.33L19.12 17h-3.24z"/></svg>',
+            geography: '<svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>',
+            other: '<svg viewBox="0 0 24 24"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H8V4h12v12zM10 9h8v2h-8zm0 3h4v2h-4zm0-6h8v2h-8z"/></svg>'
+        };
+        return svgIcons[category] || svgIcons.other;
+    }
+    // Legacy emoji fallback
     const icons = {
         history: '📜',
         math: '🔢',
@@ -3444,7 +3550,7 @@ function openQuicklook(id, isUserMaterial = false) {
     document.getElementById('quicklookTitle').textContent = material.title;
     document.getElementById('quicklookAuthor').textContent = material.author;
     document.getElementById('quicklookCount').textContent = `${material.count} ${t('questions')}`;
-    document.getElementById('quicklookIcon').textContent = getCategoryIcon(material.category);
+    document.getElementById('quicklookIcon').innerHTML = getCategoryIcon(material.category, true);
     document.getElementById('quicklookCategory').textContent = t(`cat${capitalize(material.category || 'Other')}`);
     
     // Render preview
@@ -3595,7 +3701,7 @@ function renderFavorites() {
     grid.innerHTML = '';
 
     favoriteMaterials.forEach(material => {
-        const categoryIcon = getCategoryIcon(material.category);
+        const categorySvg = getCategoryIcon(material.category, true);
 
         const card = document.createElement('div');
         card.className = 'material-card';
@@ -3609,8 +3715,8 @@ function renderFavorites() {
         title.textContent = material.title;
 
         const badge = document.createElement('div');
-        badge.className = 'material-card-badge';
-        badge.textContent = categoryIcon;
+        badge.className = 'material-card-badge material-badge-svg';
+        badge.innerHTML = categorySvg;
 
         header.appendChild(title);
         header.appendChild(badge);
@@ -3619,10 +3725,12 @@ function renderFavorites() {
         meta.className = 'material-card-meta';
 
         const authorSpan = document.createElement('span');
-        authorSpan.textContent = `👤 ${material.author}`;
+        authorSpan.className = 'meta-item-svg';
+        authorSpan.innerHTML = `<svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg> ${material.author}`;
 
         const countSpan = document.createElement('span');
-        countSpan.textContent = `📝 ${material.count} ${t('questions')}`;
+        countSpan.className = 'meta-item-svg';
+        countSpan.innerHTML = `<svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg> ${material.count} ${t('questions')}`;
 
         meta.appendChild(authorSpan);
         meta.appendChild(countSpan);
@@ -3632,13 +3740,13 @@ function renderFavorites() {
         actions.onclick = event.stopPropagation;
 
         const useBtn = document.createElement('button');
-        useBtn.className = 'card-action-btn';
-        useBtn.textContent = `🚀 ${t('useMaterial')}`;
+        useBtn.className = 'card-action-btn action-btn-svg';
+        useBtn.innerHTML = `<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg> ${t('useMaterial')}`;
         useBtn.onclick = () => useMaterial(material.id, material.isUserMaterial);
 
         const favoriteBtn = document.createElement('button');
-        favoriteBtn.className = 'card-action-btn favorite-active';
-        favoriteBtn.textContent = '⭐';
+        favoriteBtn.className = 'card-action-btn action-btn-svg favorite-active';
+        favoriteBtn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>';
         favoriteBtn.onclick = () => toggleFavorite(material.id, material.isUserMaterial);
 
         actions.appendChild(useBtn);
