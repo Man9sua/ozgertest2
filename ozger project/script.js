@@ -130,6 +130,7 @@ const i18n = {
         logoutSuccess: 'Сәтті шықтыңыз',
         passwordMismatch: 'Құпия сөздер сәйкес келмейді',
         fillAllFields: 'Барлық өрістерді толтырыңыз',
+        useEmailToLogin: 'Кіру үшін email мекенжайын пайдаланыңыз',
         languageChanged: 'Тіл сәтті өзгертілді!',
         avatarUpdated: 'Аватар сәтті жаңартылды!',
         guest: 'Қонақ',
@@ -342,6 +343,7 @@ const i18n = {
         logoutSuccess: 'Вы вышли из системы',
         passwordMismatch: 'Пароли не совпадают',
         fillAllFields: 'Заполните все поля',
+        useEmailToLogin: 'Для входа используйте email адрес',
         languageChanged: 'Язык успешно изменён!',
         avatarUpdated: 'Аватар успешно обновлён!',
         guest: 'Гость',
@@ -553,6 +555,7 @@ const i18n = {
         logoutSuccess: 'Logged out successfully',
         passwordMismatch: 'Passwords do not match',
         fillAllFields: 'Please fill all fields',
+        useEmailToLogin: 'Please use your email address to login',
         languageChanged: 'Language changed successfully!',
         avatarUpdated: 'Avatar updated successfully!',
         guest: 'Guest',
@@ -1697,7 +1700,7 @@ function renderAuthForm(mode = 'login') {
             container.innerHTML = `
                 <form class="auth-form" id="authForm">
                     <div class="form-group">
-                        <input type="email" class="form-input" id="authEmail" placeholder="${t('emailPlaceholder')}" required>
+                        <input type="text" class="form-input" id="authEmail" placeholder="${t('emailPlaceholder')} or ${t('usernamePlaceholder')}" required>
                     </div>
                     <div class="form-group">
                         <input type="password" class="form-input" id="authPassword" placeholder="${t('passwordPlaceholder')}" required>
@@ -2015,12 +2018,12 @@ async function completeRegistration(password) {
 }
 
 async function handleAuth(isLogin) {
-    const email = document.getElementById('authEmail')?.value.trim();
+    const emailOrUsername = document.getElementById('authEmail')?.value.trim();
     const password = document.getElementById('authPassword')?.value;
     const confirmPassword = document.getElementById('authPasswordConfirm')?.value;
     const username = document.getElementById('authUsername')?.value.trim();
     
-    if (!email || !password) {
+    if (!emailOrUsername || !password) {
         showToast(t('fillAllFields'), 'warning');
         return;
     }
@@ -2043,7 +2046,14 @@ async function handleAuth(isLogin) {
     
     try {
         if (isLogin) {
-            const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
+            // Check if input is email or username
+            if (!emailOrUsername.includes('@')) {
+                // Input looks like username, but we need email for Supabase auth
+                showToast(t('useEmailToLogin'), 'warning');
+                return;
+            }
+
+            const { data, error } = await supabaseClient.auth.signInWithPassword({ email: emailOrUsername, password });
             if (error) throw error;
             
             currentUser = data.user;
